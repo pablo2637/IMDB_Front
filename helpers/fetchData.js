@@ -1,0 +1,105 @@
+const urlBase = process.env.URL_BASE;
+const urlBaseBack = process.env.URL_BASE_BACK;
+const urlAPI = 'api';
+const urlApiKeyIMDB = process.env.API_IMDB;
+const urlMoviesMongo = 'movies/mongo';
+// const urlMoviesIMDB = 'movies/imdb';
+const urlBaseIMDB = 'https://imdb-api.com/API';
+const urlDashboardUser = 'dashboard-usuario'
+
+const fetchData = async (tipo, data) => {
+    const body = data.body;
+    const bodyJSON = JSON.stringify(data.body);
+    const params = data.params || '';
+    const query = data.query || '';
+    let url = '';
+    let options = {};
+
+    console.log(params, query, params, body)
+
+    switch (tipo) {
+
+        //API interna mongo **************************************************
+        case 'getMoviesInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
+            break;
+        case 'getMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+            break;
+        case 'postMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
+            options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON
+            }
+            break;
+        case 'putMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+            options = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON
+            }
+            break;
+        case 'deleteMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+            options = { method: 'DELETE' }
+            break;
+        
+
+        //Api externa imdb **************************************************
+        case 'getMoviesExt':
+            url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${params.title}`; //pendiente de verificar body
+            break;
+        case 'getMovieExt':            
+            url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.id}`; //pendiente de verificar id
+            break;
+
+
+        //?API interna SQL: usuarios.favoritas **************************************************
+        case 'getMoviesFav':
+            url = `${urlBaseBack}/${urlDashboardUser}/favoritas/${params.id_user}`;
+            break;
+        case 'guardarMovieFav':
+            url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
+            options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON // params.id_movie
+            }
+            break;
+        case 'actualizarMoviesFav':
+            url = `${urlBaseBack}/${urlDashboardUser}/eliminar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
+            options = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON // params.id_movie
+            };
+            break;
+    };
+
+    //Fetch
+    try {
+        const request = await fetch(url, options);
+        const response = await request.json();       
+        if (!response) return {
+            ok: false,
+            msg: 'Error fetchData',
+            response
+        };
+
+        return {
+            ok: true,
+            data: response
+        };
+    } catch (e) {
+        console.log('error', e)
+        return {
+            ok: false,
+            error: e
+        };
+    };
+};
+
+module.exports = { fetchData }

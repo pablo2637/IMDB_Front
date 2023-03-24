@@ -1,0 +1,24 @@
+<main>
+
+    <a href="/dashboard-admin/nueva">Crear película</a>
+
+    <section>
+        <% if (movies.length > 0) { %>
+            <% movies.forEach(item => { %>
+                <article>
+                    <h2><%= item.title %></h2>
+                    <img src="<%= item.image %>" alt="">
+                    <p><%= item.year %></p>
+                    <p><%= item.directors %></p>
+                    <p><%= item.genres %></p>
+                    <p><%= item.runtimeStr %></p>
+                    <a href="/dashboard-admin/editar/<%= item._id %>">Editar</a>
+                    <a href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <p> No hay películas en la base de datos… </p>
+        <% } %>
+    </section>
+
+</main>
