@@ -17,7 +17,7 @@ const getMovies = async (req, res) => {
 
 
 const mostrarFormularioNueva = async (req, res) => {
-
+    res.render("../views/admin/vistaCrearPelicula")
 
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
