@@ -1,20 +1,31 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    if (!req.oidc.isAuthenticated()) return res.render("test", {
-        msg: 'No logeado',
-        isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user,
-        token: req.oidc.refreshToken
-    })
+const { validateUser } = require('../middlewares/validateUser');
+const { } = require('../middlewares/')
+const {
+    adminDashboard,
+    userDashboard } = require('../controllers/controllerFront')
 
-    return res.render("test", {
-        msg: 'Logeado correctamente',
-        isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user,
-        token: req.oidc.refreshToken
-    })
-});
+router.get('/', (req, res) => { res.render('index') });
+
+router.get('/dashboard',
+    validateAdmin,
+    // redirectUser
+)
+
+router.get('/user',
+    validateUser,
+    userDashboard
+)
+
+router.get('/admin',
+    validateAdmin,
+    adminDashboard
+)
+
+router.get('/custom-logout',
+    //loginUser    
+)
 
 module.exports = router;

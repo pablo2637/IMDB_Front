@@ -1,0 +1,30 @@
+const { queriesAuth } = require('../models/queries')
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    host: 'imdb.c0aymyj9upbq.us-east-1.rds.amazonaws.com',
+    user: 'postgres',
+    database: 'imdb',
+    password: 'FullStack23',
+    ssl: { rejectUnauthorized: false }
+})
+
+const isAdmin = async ({ oidc }, res) => {
+    let client, data;
+    try {
+        client = await pool.connect();
+        data = await client.query(queriesAuth.isAdmin, [oidc.user.email]);
+    } catch (e) {
+        throw e
+    } finally {
+        client.release();
+    }
+
+    if (data.rowCount == 0) return false
+    console.log('isAdmin', data.rows[0].rol)
+
+    if (!data.rows[0].rol == 'admin') res.send({ ok: false })
+    next();
+}
+
+module.exports = { isAdmin }
