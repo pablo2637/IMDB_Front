@@ -2,22 +2,33 @@ const {fetchData} = require('../helpers/fetchData');
 
 
 
-const getMoviesFav = async (req, res) => {
+const getFavorites = async (req, res) => {
 
-    const tipo = 'getMoviesFav';
+    const { data } = await fetchData('getFavorites', req);
 
-    const respuesta = await fetchData(tipo, req);
+    console.log('controller: ', data);
 
-    // tendría que destructurar la "respuesta" para pasarle esa info al render
+    if(data.ok){
+
+        // const respuesta = await fetchData('getMovieExt', );
+
+        // res.render('../views/favoritas.ejs', {
+        //     msg: '¡Sí tenemos películas guardadas en favoritas!'
+        // });
+
+    }else{
+
+        res.render('../views/favoritas.ejs', {
+            msg: 'No hay películas guardadas en favoritas…'
+        });
+
+    };
+
+}; //!FUNC-GETFAVORITES
 
 
-    res.send('Probando desde getMoviesFav');
 
-}; //!FUNC-GETMOVIESFAV
-
-
-
-const guardarMovieFav = async (req, res) => {
+const addFavorite = async (req, res) => {
 
     // tengo que hacer dos req: uno para el id del usuario y otro para el id de la película.
     // comprobación: si el id_movie ya existe asociado al id_usuario, mostrar mensaje "la película ya está guardada como favorita"; en caso contrario, guardar (pasar req al fetchData)
@@ -31,11 +42,11 @@ const guardarMovieFav = async (req, res) => {
 
     //res.redirect('/dashboard-usuario/favoritas');
 
-}; //!FUNC-GUARDARMOVIEFAV
+}; //!FUNC-ADDFAVORITE
 
 
 
-const actualizarMoviesFav = async (req, res) => {
+const deleteFavorite = async (req, res) => {
 
     // tengo que hacer dos req: uno para el id del usuario y otro para el id de la película.
     // comprobación: si el id_movie NO existe asociado al id_usuario en la bbdd, mostrar mensaje "la película no está guardada como favorita y no se puede eliminar", por ej.; en caso contrario, "eliminar" (actualizar) (pasar req al fetchData)
@@ -47,12 +58,12 @@ const actualizarMoviesFav = async (req, res) => {
 
     //res.redirect('/dashboard-usuario/favoritas');
 
-}; //!FUNC-ACTUALIZARMOVIESFAV
+}; //!FUNC-DELETEFAVORITE
 
 
 
 module.exports = {
-    getMoviesFav,
-    guardarMovieFav,
-    actualizarMoviesFav
+    getFavorites,
+    addFavorite,
+    deleteFavorite
 };

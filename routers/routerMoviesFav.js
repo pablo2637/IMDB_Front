@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const {getMoviesFav, guardarMovieFav, actualizarMoviesFav} = require('../controllers/controllerMoviesFav');
+const {getFavorites, addFavorite, deleteFavorite} = require('../controllers/controllerFrontUser');
 
 
-//* PELÍCULAS FAVORITAS DEL USUARIO (por eso el id)
-router.get('/favoritas/:id_usuario', getMoviesFav);
+
+//* MOSTRAR LAS PELÍCULAS FAVORITAS DEL USUARIO
+router.get('/favoritas/:user_id', getFavorites);
 
 
-//* GUARDAR PELÍCULA EN FAVORITAS DEL USUARIO
-router.post('/guardar-fav/:id_usuario?id_movie=id_movie', guardarMovieFav); // ruta del atributo action del form
+//* GUARDAR PELÍCULA EN LISTA DE FAVORITAS DEL USUARIO
+// router.post('/guardar-fav/:id_usuario?id_movie=id_movie', addFavorite); // ruta del atributo action del form
 
 
-//* ACTUALIZAR ARRAY DE PELÍCULAS FAVORITAS DEL USUARIO
-router.post('/actualizar-fav/:id_usuario?id_movie=id_movie', actualizarMoviesFav); // ruta del atributo action del form
+//* ELIMINAR PELÍCULA DE LISTA DE FAVORITAS DEL USUARIO
+// router.post('/actualizar-fav/:id_usuario?id_movie=id_movie', deleteFavorite); // ruta del atributo action del form
 
 
 

@@ -5,6 +5,7 @@ const urlApiKeyIMDB = process.env.API_IMDB;
 const urlMoviesMongo = 'movies/mongo';
 // const urlMoviesIMDB = 'movies/imdb';
 const urlBaseIMDB = 'https://imdb-api.com/API';
+const urlAPIFavorites = 'api/favorites'
 const urlDashboardUser = 'dashboard-usuario'
 
 const fetchData = async (tipo, data) => {
@@ -15,7 +16,7 @@ const fetchData = async (tipo, data) => {
     let url = '';
     let options = {};
 
-    console.log(params, query, params, body)
+    console.log(params, query, body)
 
     switch (tipo) {
 
@@ -48,41 +49,41 @@ const fetchData = async (tipo, data) => {
             break;
         
 
-        //Api externa imdb **************************************************
+        //API externa: IMDb **************************************************
         case 'getMoviesExt':
-            url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${params.title}`; //pendiente de verificar body
+            url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${query.title}`; // busca por query "title"
             break;
         case 'getMovieExt':            
-            url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.id}`; //pendiente de verificar id
+            url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.movie_id}`; // busca por params "movie_id"
             break;
 
 
-        //?API interna SQL: usuarios.favoritas **************************************************
-        case 'getMoviesFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/favoritas/${params.id_user}`;
+        //API PostgreSQL: usuarios.favoritas **************************************************
+        case 'getFavorites':
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
-        case 'guardarMovieFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-            options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON // params.id_movie
-            }
-            break;
-        case 'actualizarMoviesFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/eliminar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-            options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON // params.id_movie
-            };
-            break;
+        // case 'guardarMovieFav':
+        //     url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
+        //     options = {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: bodyJSON // params.id_movie
+        //     }
+        //     break;
+        // case 'actualizarMoviesFav':
+        //     url = `${urlBaseBack}/${urlDashboardUser}/eliminar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
+        //     options = {
+        //         method: 'PUT',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: bodyJSON // params.id_movie
+        //     };
+        //     break;
     };
 
     //Fetch
     try {
         const request = await fetch(url, options);
-        const response = await request.json();       
+        const response = await request.json();
         if (!response) return {
             ok: false,
             msg: 'Error fetchData',
