@@ -4,25 +4,28 @@ const {fetchData} = require('../helpers/fetchData');
 
 const getFavorites = async (req, res) => {
 
-    const { data } = await fetchData('getFavorites', req);
+    const arrayMovies = [];
 
-    console.log('controller: ', data);
+    try {
 
-    if(data.ok){
+        const { data } = await fetchData('getFavorites', req);
 
-        // const respuesta = await fetchData('getMovieExt', );
+        const movies = data.data.map(movie => movie = movie.movie_id); // extraigo solo los 'movie_id'
+        
+        for(let i = 0; i < movies.length; i++){
+            let {data} = await fetchData('getMovieExtBack', movies[i]);
+            arrayMovies.push(data);
+        };
+        
+    } catch (error) {
 
-        // res.render('../views/favoritas.ejs', {
-        //     msg: '¡Sí tenemos películas guardadas en favoritas!'
-        // });
-
-    }else{
-
-        res.render('../views/favoritas.ejs', {
-            msg: 'No hay películas guardadas en favoritas…'
-        });
-
+        console.log(error);
+        
     };
+
+    res.render('../views/favoritas.ejs', {
+        arrayMovies
+    });
 
 }; //!FUNC-GETFAVORITES
 

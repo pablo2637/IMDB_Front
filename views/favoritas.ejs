@@ -1,5 +1,24 @@
 <main>
 
-    <h1> <%= msg %> </h1>
-    
+    <% if (arrayMovies.length > 0) { %>
+
+        <% arrayMovies.forEach(item => { %>
+            <article>
+                <h2> <%= item.title %> </h2>
+                <img src="<%= item.image %>" alt="" width="300px">
+                <p><%= item.year %></p>
+                <p><%= item.directors %></p>
+                <p><%= item.genres %></p>
+                <p><%= item.runtimeStr %></p>
+                <a href="/dashboard-usuario/detalle-pelicula">Ver detalles</a>
+                <a href="">Eliminar</a>
+            </article>
+        <% }) %>
+
+    <% } else { %>
+     
+        <p> No hay películas favoritas… </p>
+     
+    <% } %>
+
 </main>

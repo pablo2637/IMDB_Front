@@ -3,7 +3,7 @@ const urlBaseBack = process.env.URL_BASE_BACK;
 const urlAPI = 'api';
 const urlApiKeyIMDB = process.env.API_IMDB;
 const urlMoviesMongo = 'movies/mongo';
-// const urlMoviesIMDB = 'movies/imdb';
+const urlMoviesIMDB = 'movies/imdb';
 const urlBaseIMDB = 'https://imdb-api.com/API';
 const urlAPIFavorites = 'api/favorites'
 const urlDashboardUser = 'dashboard-usuario'
@@ -15,8 +15,7 @@ const fetchData = async (tipo, data) => {
     const query = data.query || '';
     let url = '';
     let options = {};
-
-    console.log(params, query, body)
+    console.log(params, query, body);
 
     switch (tipo) {
 
@@ -53,11 +52,17 @@ const fetchData = async (tipo, data) => {
         case 'getMoviesExt':
             url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${query.title}`; // busca por query "title"
             break;
-        case 'getMovieExt':            
+        case 'getMovieExt':
             url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.movie_id}`; // busca por params "movie_id"
             break;
 
 
+        //API externa: IMDb (ruta back) **************************************************
+        case 'getMovieExtBack':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${data}`;
+            break;
+
+            
         //API PostgreSQL: usuarios.favoritas **************************************************
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
