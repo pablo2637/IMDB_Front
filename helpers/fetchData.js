@@ -68,8 +68,8 @@ const fetchData = async (tipo, data) => {
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
-        case 'addFavorite':
-            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
+        case 'addFavorite': //! revisar
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
             options = {
                 method: 'POST',
                 body: bodyJSON,

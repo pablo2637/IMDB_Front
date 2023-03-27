@@ -37,28 +37,22 @@ const getFavorites = async (req, res) => {
 
 const addFavorite = async (req, res) => {
 
-    // tengo que hacer dos req: uno para el id del usuario y otro para el id de la película.
-    // comprobación: si el id_movie ya existe asociado al id_usuario, mostrar mensaje "la película ya está guardada como favorita"; en caso contrario, guardar (pasar req al fetchData)
-    // ¿hacer res.redirect según la página en la que se encuentre (buscador o detalle-pelicula)?
-
     const tipo = 'addFavorite';
 
-    const datos = {
-        user_id: req.params.user_id, //! probar si con 'params' en vez de 'user_id' funciona igual
-        body: req.body //! lo mismo para el body
+    const datos = { //! habría que enviar tres datos a la bbdd SQL: user_id, movie_id, api_movie
+        params: req.params.user_id,
+        query: req.query.movie_id
     };
 
-    console.log('CONTROLLER ADDFAVORITE:', body)
-
-    //! hacer un console.log() de const url = location.href (por ejemplo), para ver si así se puede armar la condicional para el redirect (si 'buscador' o 'detalle-pelicula', en caso tal)
+    console.log('CONTROLLER:', datos);
 
     try {
 
-        const solicitud = await fetchData(tipo, datos);
+        await fetchData(tipo, datos);
 
-        if(solicitud.ok){
-            console.log('Película guardada en favoritas con éxito') //! probar qué trae solicitud y si solicitud.ok se recibe, ya que esto se puede utilizar para pintar algún mensaje al usuario
-        }
+        // if(solicitud.ok){
+        //     console.log('Película guardada en favoritas con éxito') //! probar qué trae solicitud y si solicitud.ok se recibe, ya que esto se puede utilizar para pintar algún mensaje al usuario
+        // }
         
     } catch (error) {
 
@@ -66,7 +60,9 @@ const addFavorite = async (req, res) => {
         
     };
 
-    //res.redirect('/dashboard-usuario/favoritas');
+    //! pendiente: ver opción 'location' para condicional redirect ('buscador' o 'detalle-pelicula')
+
+    res.redirect(`/dashboard-usuario/favoritas/${req.params.user_id}`);
 
 }; //!FUNC-ADDFAVORITE
 

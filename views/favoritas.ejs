@@ -11,7 +11,8 @@
                 <p><%= item.genres %></p>
                 <p><%= item.runtimeStr %></p>
                 <a href="/dashboard-usuario/detalle-pelicula/<%= item.id_movie %>">Ver detalles</a>
-                <a href="/dashboard-usuario/eliminar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Eliminar</a> <!-- PENDIENTE CAPTURAR EL QUERY DE ID_MOVIE // /?movie_id= o son "/"? -->
+                <a href="/dashboard-usuario/eliminar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Eliminar</a>
+                <a href="/dashboard-usuario/guardar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Añadir a favoritas</a>
                 <div> (div oculto para preguntar si está seguro que quiere eliminar) </div>
             </article>
         <% }) %>
