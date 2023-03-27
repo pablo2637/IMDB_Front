@@ -14,7 +14,7 @@ router.get('/favoritas/:user_id', getFavorites);
 
 
 //* ELIMINAR PELÍCULA DE LISTA DE FAVORITAS DEL USUARIO
-// router.post('/actualizar-fav/:id_usuario?id_movie=id_movie', deleteFavorite); // ruta del atributo action del form
+router.post('/eliminar-fav/:user_id', deleteFavorite); // ruta "no visible"
 
 
 

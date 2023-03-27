@@ -67,6 +67,9 @@ const fetchData = async (tipo, data) => {
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
+        // case 'deteleFavorite':
+        //     url =
+        //     break;
         // case 'guardarMovieFav':
         //     url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
         //     options = {

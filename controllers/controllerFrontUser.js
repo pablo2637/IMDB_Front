@@ -51,13 +51,7 @@ const addFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
 
-    // tengo que hacer dos req: uno para el id del usuario y otro para el id de la película.
-    // comprobación: si el id_movie NO existe asociado al id_usuario en la bbdd, mostrar mensaje "la película no está guardada como favorita y no se puede eliminar", por ej.; en caso contrario, "eliminar" (actualizar) (pasar req al fetchData)
-
-    const tipo = 'actualizarMoviesFav';
-
-    await fetchData(tipo, req);
-
+    const tipo = 'deteleFavorite';
 
     //res.redirect('/dashboard-usuario/favoritas');
 
