@@ -4,6 +4,8 @@ const {fetchData} = require('../helpers/fetchData');
 
 const getFavorites = async (req, res) => {
 
+    const id = req.params.user_id; // se captura para pasárselo al botón de eliminar
+
     const arrayMovies = [];
 
     try {
@@ -23,8 +25,11 @@ const getFavorites = async (req, res) => {
         
     };
 
+    console.log('getFavorites arrayMovies:', arrayMovies)
+
     res.render('../views/favoritas.ejs', {
-        arrayMovies
+        arrayMovies,
+        user_id: id
     });
 
 }; //!FUNC-GETFAVORITES
@@ -51,9 +56,24 @@ const addFavorite = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
 
-    const tipo = 'deteleFavorite';
+    const tipo = 'deleteFavorite';
 
-    //res.redirect('/dashboard-usuario/favoritas');
+    const datos = {
+        user_id: req.params.user_id,
+        movie_id: req.query
+    };
+
+    try {
+
+        await fetchData(tipo, datos) //! revisar
+        
+    } catch (error) {
+
+        console.log(error);
+        
+    };
+
+    res.redirect(`/dashboard-usuario/favoritas/${req.params.user_id}`);
 
 }; //!FUNC-DELETEFAVORITE
 

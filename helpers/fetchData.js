@@ -6,7 +6,7 @@ const urlMoviesMongo = 'movies/mongo';
 const urlMoviesIMDB = 'movies/imdb';
 const urlBaseIMDB = 'https://imdb-api.com/API';
 const urlAPIFavorites = 'api/favorites'
-const urlDashboardUser = 'dashboard-usuario'
+const urlDashboardUser = 'dashboard-usuario';
 
 const fetchData = async (tipo, data) => {
     const body = data.body;
@@ -15,7 +15,8 @@ const fetchData = async (tipo, data) => {
     const query = data.query || '';
     let url = '';
     let options = {};
-    console.log(params, query, body);
+    console.log('FETCH:', params, query, body);
+    console.log('QUERY ID:', query.movie_id);
 
     switch (tipo) {
 
@@ -67,25 +68,10 @@ const fetchData = async (tipo, data) => {
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
-        // case 'deteleFavorite':
-        //     url =
-        //     break;
-        // case 'guardarMovieFav':
-        //     url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-        //     options = {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: bodyJSON // params.id_movie
-        //     }
-        //     break;
-        // case 'actualizarMoviesFav':
-        //     url = `${urlBaseBack}/${urlDashboardUser}/eliminar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-        //     options = {
-        //         method: 'PUT',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: bodyJSON // params.id_movie
-        //     };
-        //     break;
+        case 'deleteFavorite':
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}?movie_id=${query.movie_id}`;
+            options = { method: 'DELETE' };
+            break;
     };
 
     //Fetch

@@ -10,8 +10,9 @@
                 <p><%= item.directors %></p>
                 <p><%= item.genres %></p>
                 <p><%= item.runtimeStr %></p>
-                <a href="/dashboard-usuario/detalle-pelicula">Ver detalles</a>
-                <a href="">Eliminar</a>
+                <a href="/dashboard-usuario/detalle-pelicula/<%= item.id_movie %>">Ver detalles</a>
+                <a href="/dashboard-usuario/eliminar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Eliminar</a> <!-- PENDIENTE CAPTURAR EL QUERY DE ID_MOVIE // /?movie_id= o son "/"? -->
+                <div> (div oculto para preguntar si está seguro que quiere eliminar) </div>
             </article>
         <% }) %>
 
