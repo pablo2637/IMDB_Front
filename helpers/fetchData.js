@@ -15,8 +15,8 @@ const fetchData = async (tipo, data) => {
     const query = data.query || '';
     let url = '';
     let options = {};
-    console.log('FETCH:', params, query, body);
-    console.log('QUERY ID:', query.movie_id);
+    
+    console.log(params, query, body);
 
     switch (tipo) {
 
@@ -68,8 +68,16 @@ const fetchData = async (tipo, data) => {
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
+        case 'addFavorite':
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
+            options = {
+                method: 'POST',
+                body: bodyJSON,
+                headers: { 'Content-Type': 'application/json' }
+            };
+            break;
         case 'deleteFavorite':
-            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}?movie_id=${query.movie_id}`;
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
             options = { method: 'DELETE' };
             break;
     };

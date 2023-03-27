@@ -25,7 +25,6 @@ const getFavorites = async (req, res) => {
         
     };
 
-    console.log('getFavorites arrayMovies:', arrayMovies)
 
     res.render('../views/favoritas.ejs', {
         arrayMovies,
@@ -41,12 +40,31 @@ const addFavorite = async (req, res) => {
     // tengo que hacer dos req: uno para el id del usuario y otro para el id de la película.
     // comprobación: si el id_movie ya existe asociado al id_usuario, mostrar mensaje "la película ya está guardada como favorita"; en caso contrario, guardar (pasar req al fetchData)
     // ¿hacer res.redirect según la página en la que se encuentre (buscador o detalle-pelicula)?
-    
 
-    const tipo = 'guardarMovieFav';
+    const tipo = 'addFavorite';
 
-    await fetchData(tipo, req);
+    const datos = {
+        user_id: req.params.user_id, //! probar si con 'params' en vez de 'user_id' funciona igual
+        body: req.body //! lo mismo para el body
+    };
 
+    console.log('CONTROLLER ADDFAVORITE:', body)
+
+    //! hacer un console.log() de const url = location.href (por ejemplo), para ver si así se puede armar la condicional para el redirect (si 'buscador' o 'detalle-pelicula', en caso tal)
+
+    try {
+
+        const solicitud = await fetchData(tipo, datos);
+
+        if(solicitud.ok){
+            console.log('Película guardada en favoritas con éxito') //! probar qué trae solicitud y si solicitud.ok se recibe, ya que esto se puede utilizar para pintar algún mensaje al usuario
+        }
+        
+    } catch (error) {
+
+        console.log(error);
+        
+    };
 
     //res.redirect('/dashboard-usuario/favoritas');
 
@@ -59,13 +77,13 @@ const deleteFavorite = async (req, res) => {
     const tipo = 'deleteFavorite';
 
     const datos = {
-        user_id: req.params.user_id,
-        movie_id: req.query
+        params: req.params.user_id,
+        query: req.query.movie_id
     };
 
     try {
 
-        await fetchData(tipo, datos) //! revisar
+        await fetchData(tipo, datos);
         
     } catch (error) {
 
