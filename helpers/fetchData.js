@@ -64,17 +64,9 @@ const fetchData = async (tipo, data) => {
             break;
 
             
-        //API PostgreSQL: usuarios.favoritas **************************************************
+        //API PostgreSQL: dashboard-usuario/favoritas **************************************************
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
-            break;
-        case 'addFavorite': //! revisar
-            url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
-            options = {
-                method: 'POST',
-                body: bodyJSON,
-                headers: { 'Content-Type': 'application/json' }
-            };
             break;
         case 'deleteFavorite':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
