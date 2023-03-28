@@ -32,9 +32,10 @@
                     <p class="card"><%= item.directors %></p>
                     <p class="card"><%= item.genres %></p>
                     <p class="card"><%= item.runtimeStr %></p>
-                    <a class="card" id="BotonEditar" href="/dashboard-admin/editar-formulario/<%= item._id %>">Editar</a>
-                    <a class="card" id="BotonEliminar" href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
-
+                    <a class="card" id="BotonEditar" href="/dashboard-admin/editar/<%= item._id %>" method="GET">Editar</a>
+                    <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
+                        <button type="submit">Eliminar</button>
+                          </form>
                 </article>
             </div>
             <% }) %>
