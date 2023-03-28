@@ -13,8 +13,19 @@ const queriesAuth = {
     isAdmin: `SELECT rol
                 FROM rols as r
                 INNER JOIN users as u
-                ON r.user_id=u.user_id
+                    ON r.user_id=u.user_id
                 WHERE u.email=$1;`
 }
 
-module.exports = { queriesAuth };
+const queriesFav = {
+    getFavorites: `SELECT f.movie_id as fav_id
+                    FROM favorites as f
+                    INNER JOIN users as u
+                        ON f.user_id=u.user_id
+                    WHERE u.email=$1`
+}
+
+module.exports = {
+    queriesAuth,
+    queriesFav
+};

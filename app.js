@@ -12,6 +12,7 @@ const config = {
     issuerBaseURL: process.env.A0_ISSUER_BASE_URL
 };
 
+
 const app = express();                              //Servidor
 const port = process.env.PORT || 3005;
 
@@ -28,7 +29,7 @@ app.use(auth(config));                              //Auth0 config
 
 //Rutas
 app.use('/', require('./routers/routerFront'))
-app.use('/dashboard-usuario', require('./routers/routerMoviesFav')); // ruta usuario películas favoritas
+app.use('/userSearch', require('./routers/routerFrontUser'))
 app.use('/dashboard-admin', require('./routers/routerFrontAdmin')); // ruta admin para crear, editar y eliminar películas
 
 

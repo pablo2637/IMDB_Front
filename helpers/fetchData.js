@@ -3,11 +3,13 @@ const urlBaseBack = process.env.URL_BASE_BACK;
 const urlAPI = 'api';
 const urlApiKeyIMDB = process.env.API_IMDB;
 const urlMoviesMongo = 'movies/mongo';
-// const urlMoviesIMDB = 'movies/imdb';
-const urlBaseIMDB = 'https://imdb-api.com/API';
+const urlMoviesIMDB = 'movies/imdb';
+const urlFavorites = 'favorites';
 const urlDashboardUser = 'dashboard-usuario'
+const urlScrapping = 'scrapping'
 
 const fetchData = async (tipo, data) => {
+    // console.log('data',data)
     const body = data.body;
     const bodyJSON = JSON.stringify(data.body);
     const params = data.params || '';
@@ -15,7 +17,7 @@ const fetchData = async (tipo, data) => {
     let url = '';
     let options = {};
 
-    console.log(params, query, params, body)
+    console.log(tipo, query, params, body)
 
     switch (tipo) {
 
@@ -23,39 +25,52 @@ const fetchData = async (tipo, data) => {
         case 'getMoviesInt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
             break;
+        case 'getMovieTitleInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/title/${body.title}`;
+            break;
         case 'getMovieInt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
             break;
-        case 'postMovieInt':
-            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
-            options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON
-            }
-            break;
-        case 'putMovieInt':
-            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
-            options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON
-            }
-            break;
-        case 'deleteMovieInt':
-            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
-            options = { method: 'DELETE' }
-            break;
-        
+        // case 'postMovieInt':
+        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
+        //     options = {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: bodyJSON
+        //     }
+        //     break;
+        // case 'putMovieInt':
+        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+        //     options = {
+        //         method: 'PUT',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: bodyJSON
+        //     }
+        //     break;
+        // case 'deleteMovieInt':
+        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+        //     options = { method: 'DELETE' }
+        //     break;
+
 
         //Api externa imdb **************************************************
         case 'getMoviesExt':
-            url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${params.title}`; //pendiente de verificar body
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/?title=${body.title}`;
             break;
-        case 'getMovieExt':            
-            url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.id}`; //pendiente de verificar id
+        case 'getMovieExt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/id/${params.id}`;
             break;
 
+
+        //Scrapping opiniones        
+        case 'getOpinions':
+            url = `${urlBaseBack}/${urlAPI}/${urlScrapping}/?title=${body.title.replace(' ','+')}&year=${body.year}`;
+            break;
+
+        //Favorites
+        case 'getFavorites':
+            url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${query.id}`;
+            break;
 
         //?API interna SQL: usuarios.favoritas **************************************************
         case 'getMoviesFav':
@@ -81,8 +96,9 @@ const fetchData = async (tipo, data) => {
 
     //Fetch
     try {
+        console.log(url, options)
         const request = await fetch(url, options);
-        const response = await request.json();       
+        const response = await request.json();
         if (!response) return {
             ok: false,
             msg: 'Error fetchData',

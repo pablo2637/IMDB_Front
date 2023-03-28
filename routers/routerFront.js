@@ -1,8 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-const { validateUser } = require('../middlewares/validateUser');
-const { } = require('../middlewares/')
+const { requiresAuth } = require('express-openid-connect');
+const { registerUser } = require('../helpers/registerUser')
+
+
+const {
+    // validateUser,
+    // registerUser,
+    redirectUser } = require('../middlewares/redirectUser');
+
 const {
     adminDashboard,
     userDashboard } = require('../controllers/controllerFront')
@@ -10,22 +17,21 @@ const {
 router.get('/', (req, res) => { res.render('index') });
 
 router.get('/dashboard',
-    validateAdmin,
-    // redirectUser
+    requiresAuth(),
+    registerUser,
+    redirectUser
 )
 
 router.get('/user',
-    validateUser,
+    requiresAuth(),
+    registerUser,
     userDashboard
 )
 
 router.get('/admin',
-    validateAdmin,
+    requiresAuth(),
+    registerUser,
     adminDashboard
-)
-
-router.get('/custom-logout',
-    //loginUser    
 )
 
 module.exports = router;

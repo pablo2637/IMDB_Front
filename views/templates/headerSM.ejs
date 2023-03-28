@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d28a6644c9.js" crossorigin="anonymous"></script>
+    <% if (opinions=='' ) { %>
+        <meta http-equiv="refresh" content="0; URL='/userSearch/getOpinions/<%- movie.id_movie %>'" />
+    <% } %>
+    <title>imdb</title>
+    <style>
+        .loader {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: block;
+            margin:15px auto;
+            position: relative;
+            color: #000000;
+            box-sizing: border-box;
+            animation: animloader 1s linear infinite;
+            }
+
+            @keyframes animloader {
+            0% {
+                box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+            }
+            25% {
+                box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
+            }
+            50% {
+                box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
+            }
+            75% {
+                box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+            }
+            100% {
+                box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <form action="/userSearch/searchMovies" method="post">
+            <label for="title"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #9194af;"></i></label>
+            <input type="text" name="title" id="title">
+            <!-- <input type="submit" value="Buscar"> -->
+        </form>
+    </header>
+<main>
+<a href="javascript:history.back()"><i class="fa-solid fa-left-long fa-shake fa-2xl" style="color: #3b4385;"></i></i></a>

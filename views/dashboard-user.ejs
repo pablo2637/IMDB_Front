@@ -5,16 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (user.rol=='admin') { %>
+        <meta http-equiv="refresh" content="0; URL='../views/dashboard-admin.ejs'"/> 
+    <% } %>
     <title>Dashboard Usuario</title>
 </head>
 
-<body>
+<body>    
     <nav>
         <li><a href="/logout/">Logout</a></li>
     </nav>
 
     <h1><%- user.name %></h1>
     <h2><%- user.email %></h2>
+
+    <a href="/userSearch/search">Buscar Películas</a>
+    <a href="">Ir a Favoritos</a>
+    
 </body>
 
 </html>
