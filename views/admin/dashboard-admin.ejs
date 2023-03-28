@@ -13,7 +13,7 @@
                     <p><%= item.genres %></p>
                     <p><%= item.runtimeStr %></p>
                     <a href="/dashboard-admin/editar/<%= item._id %>">Editar</a>
-                    <a href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
+                    <a href="/dashboard-admin/eliminar/<%= item._id %>/?title=<%= item.id_movie %>">Eliminar</a>
                 </article>
             <% }) %>
         <% } else { %>

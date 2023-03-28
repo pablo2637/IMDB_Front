@@ -1,4 +1,4 @@
-1: Crear bd
+--1: Crear bd
 CREATE DATABASE imdb
     WITH
     OWNER = postgres
@@ -9,7 +9,7 @@ CREATE DATABASE imdb
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
-2: Crear tabla de users
+--2: Crear tabla de users
 CREATE TABLE users (
   user_id serial NOT NULL PRIMARY KEY, 
   name varchar(45) NOT NULL, 
@@ -17,7 +17,7 @@ CREATE TABLE users (
   password varchar(200) NOT NULL
 );
 
-3: Crear tabla de rols
+--3: Crear tabla de rols
 CREATE TABLE rols (
   rol_id serial NOT NULL PRIMARY KEY, 
   rol varchar(45) NOT NULL, 
@@ -25,7 +25,7 @@ CREATE TABLE rols (
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-4: Crear table de favorites
+--4: Crear table de favorites
 CREATE TABLE favorites (
   favorite_id serial NOT NULL PRIMARY KEY, 
   user_id int,
@@ -34,17 +34,17 @@ CREATE TABLE favorites (
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-5: Crear admin (password: admin, se guarda encriptado)
+--5: Crear admin (password: admin, se guarda encriptado)
 INSERT INTO users(name,email,password)
 VALUES
 ('pepe','pepe@correo.es','$2a$10$a.x4kbAfyVBRwcJX.TW4S.GniM1hWeeNuOVWgRg3jKtd4UebOx5FC');
 
-6: Crear rol admin
+--6: Crear rol admin
 INSERT INTO rols(rol,user_id)
 VALUES
 ('admin',1);
 
-7: Crear resto usuarios (password: 123456, se guarda encriptado)
+--7: Crear resto usuarios (password: 123456, se guarda encriptado)
 INSERT INTO users(name,email,password)
 VALUES
 ('ana','ana@correo.es','$2a$10$a23Xb31R5vIdedwkz/wl4epHZt6GerLQVU/y2PFZm28vBT4qrAm2i'),
@@ -52,7 +52,7 @@ VALUES
 ('luis','luis@correo.es','$2a$10$a23Xb31R5vIdedwkz/wl4epHZt6GerLQVU/y2PFZm28vBT4qrAm2i'),
 ('laura','laura@correo.es','$2a$10$a23Xb31R5vIdedwkz/wl4epHZt6GerLQVU/y2PFZm28vBT4qrAm2i');
 
-8: Crear resto rolers users
+--8: Crear resto rolers users
 INSERT INTO rols(rol,user_id)
 VALUES
 ('user',2),
