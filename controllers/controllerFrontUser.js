@@ -34,40 +34,6 @@ const getFavorites = async (req, res) => {
 }; //!FUNC-GETFAVORITES
 
 
-
-const addFavorite = async (req, res) => {
-
-    const tipo = 'addFavorite';
-
-    const datos = { //! habría que enviar tres datos a la bbdd SQL: user_id, movie_id, api_movie
-        params: req.params.user_id,
-        query: req.query.movie_id
-    };
-
-    console.log('CONTROLLER:', datos);
-
-    try {
-
-        await fetchData(tipo, datos);
-
-        // if(solicitud.ok){
-        //     console.log('Película guardada en favoritas con éxito') //! probar qué trae solicitud y si solicitud.ok se recibe, ya que esto se puede utilizar para pintar algún mensaje al usuario
-        // }
-        
-    } catch (error) {
-
-        console.log(error);
-        
-    };
-
-    //! pendiente: ver opción 'location' para condicional redirect ('buscador' o 'detalle-pelicula')
-
-    res.redirect(`/dashboard-usuario/favoritas/${req.params.user_id}`);
-
-}; //!FUNC-ADDFAVORITE
-
-
-
 const deleteFavorite = async (req, res) => {
 
     const tipo = 'deleteFavorite';
@@ -95,6 +61,5 @@ const deleteFavorite = async (req, res) => {
 
 module.exports = {
     getFavorites,
-    addFavorite,
     deleteFavorite
 };
