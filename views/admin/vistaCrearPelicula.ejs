@@ -1,47 +1,53 @@
+
+<link rel="stylesheet" href="/AdminPublic.css">
+
+
+<main>
+<section class="navegacion">
+        
+  <h1>Formulario</h1>
+
+  <!-- va dentro de un menu hamburguesa -->
+  <a class="atras" href="/dashboard-admin">Atras</a>
+  <a class="logout" href="/">Log out</a>
+
+  </section>
+
 <section id="formulario">
 
-    <form action="/dashboard-admin/crear-pelicula" method="post">
-        <label for="title">Título:</label>
-        <input type="text" id="titulo" name="titulo" placeholder="Título de la película">
+  <form action="/dashboard-admin/crear-pelicula" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="titulo" name="title" placeholder="Título de la película">
 
-        <label for="image">Imagen (URL):</label>
-        <input type="url" id="image" name="image">
-      
-        <label for="year">Año:</label>
-        <input type="number" id="year" name="year" placeholder="Año de estreno">
-      
-        <label for="directors">Director:</label>
-        <input type="text" id="directors" name="directors" placeholder="Director">
-      
-        <label for="stars">Actores principales:</label>
-        <input type="text" id="stars" name="stars" placeholder="Actores">
-      
-        <label for="genres">Género:</label>
-        <select id="genres" name="genres">
-          <option value="">Selecciona un género</option>
-          <option value="acción">Acción</option>
-          <option value="comedia">Comedia</option>
-          <option value="drama">Drama</option>
-          <option value="terror">Terror</option>
-          <option value="suspense">Suspense</option>
-          <option value="romance">Romance</option>
-          <option value="crimen">Crimen</option>
-          <option value="musical">Musical</option>
-          <option value="fantasia">Ciencia ficcion</option>
-          <option value="comedia">Comedia</option>
-          <option value="documetal">documental</option>
-          <option value="western">Western</option>
-        </select>
-      
-        <label for="runtimeStr">Duración:</label>
-        <input type="time" id="runtimeStr" name="runtimeStr">
-      
-        <label for="plot">Sinopsis:</label>    
-        <textarea name="plot" id="plot" cols="30" rows="10" placeholder="Introduza una sinopsis sobre la película que desea añadir"></textarea>
+    <label for="image">Imagen (URL):</label>
+    <input type="url" id="image" name="image">
 
-        <label for="imDbRating">Calificación:</label>
-        <input type="number" id="rating" name="rating">
-      
-        <input type="submit" value="agregar película">
-    </form>
+    <label for="year">Año:</label>
+    <input type="number" id="year" name="year" placeholder="Año de estreno">
+
+    <label for="directors">Director:</label>
+    <input type="text" id="directors" name="directors" placeholder="Director">
+
+    <label for="stars">Actores principales:</label>
+    <input type="text" id="stars" name="stars" placeholder="Actores">
+
+    <label for="genres">Género:</label>
+    <input type="text" id="genres" name="genres" placeholder="Genero">
+
+  
+
+    <label for="runtimeStr">Duración:</label>
+    <input type="text" id="runtimeStr" name="runtimeStr">
+
+    <label for="plot">Sinopsis:</label>
+    <textarea name="plot" id="plot" cols="30" rows="10"
+      placeholder="Introduza una sinopsis sobre la película que desea añadir"></textarea>
+
+    <label for="imdbRating">Calificación:</label>
+    <input type="text" id="rating" name="rating">
+
+    <input type="submit" value="Crear película">
+  </form>
 </section>
+
+</main>

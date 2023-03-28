@@ -15,7 +15,7 @@ const fetchData = async (tipo, data) => {
     let url = '';
     let options = {};
 
-    console.log(params, query, params, body)
+    console.log(params, query, body)
 
     switch (tipo) {
 

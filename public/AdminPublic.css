@@ -1,0 +1,214 @@
+*{
+    background-color: rgb(194, 198, 236);
+}
+
+
+/* Estilos de navegación */
+
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(59, 67, 133);
+  padding: 10px;
+  color: white;
+}
+
+.navegacion h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.menu-hamburguesa {
+  display: none;
+  cursor: pointer;
+}
+
+.menu-hamburguesa span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para cuando el menú está desplegado */
+
+nav {
+  display: flex;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+/* Media queries */
+
+@media screen and (max-width: 768px) {
+
+  .navegacion {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-hamburguesa {
+    display: block;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .mostrar-menu {
+    display: block;
+  }
+
+  .menu-hamburguesa span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .menu-hamburguesa span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-hamburguesa span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+}
+
+
+
+#BotonEditar {
+    float: right;
+    padding: 20px;
+    margin-top: -70px;
+    margin-right: 100px;
+ 
+}
+
+#BotonEliminar {
+    float: right;
+    padding: 20px;
+    margin-top: -70px;
+ 
+}
+
+.card {
+    background-color: rgb(59, 67, 133);
+    margin-top: 10px;
+    padding: 3px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    color: white;
+
+}
+
+.espacios{
+    margin-top: 70px;
+}
+
+.navegacion{
+    padding: 20px;
+    background-color: rgb(59, 67, 133);
+}
+
+h1, a{
+    background-color: rgb(59, 67, 133);
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+#formulario {
+    margin-top: 20px;
+}
+  
+  /* Estilos para la sección de navegación */
+  .navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(59, 67, 133);
+    color: white;
+  }
+  
+  .navegacion h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .navegacion a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+  
+  /* Estilos para el formulario */
+  #formulario {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+  }
+  
+  #formulario label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  #formulario input[type="text"],
+  #formulario input[type="url"],
+  #formulario input[type="number"],
+  #formulario input[type="time"],
+  #formulario textarea {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  #formulario input[type="submit"] {
+    background-color: rgb(59, 67, 133);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  #formulario input[type="submit"]:hover {
+    background-color: rgb(33, 37, 74);
+  }
+  
+  #formulario input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(59, 67, 133);
+  }
+  
+
+  

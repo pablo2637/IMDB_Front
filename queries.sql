@@ -25,7 +25,7 @@ CREATE TABLE rols (
   FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
-4: Crear table de favorites
+--4: Crear table de favorites
 CREATE TABLE favorites (
   favorite_id serial NOT NULL PRIMARY KEY, 
   user_id int,

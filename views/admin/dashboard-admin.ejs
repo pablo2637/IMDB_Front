@@ -1,20 +1,42 @@
+<link rel="stylesheet" href="/AdminPublic.css">
+
 <main>
+    <section class="navegacion">
+    
+        <h1>Administrador</h1>
 
-    <a href="/dashboard-admin/nueva">Crear película</a>
+        <div class="menu-hamburguesa">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
 
-    <section>
+        <nav>
+            <ul>
+                <li><a class="crearPelicula" href="/dashboard-admin/nueva">Crear película</a></li>
+                <li><a class="logout" href="/">Log out</a></li>
+            </ul>
+        </nav>
+
+    </section>
+
+    <section class="tarjetas">
         <% if (movies.length > 0) { %>
             <% movies.forEach(item => { %>
-                <article>
-                    <h2><%= item.title %></h2>
-                    <img src="<%= item.image %>" alt="">
-                    <p><%= item.year %></p>
-                    <p><%= item.directors %></p>
-                    <p><%= item.genres %></p>
-                    <p><%= item.runtimeStr %></p>
-                    <a href="/dashboard-admin/editar/<%= item._id %>">Editar</a>
-                    <a href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
+
+                <div class="espacios" >
+                
+                <article class="card">
+                    <h2 class="card "><%= item.title %></h2>
+                    <!-- <img class="card" src="<%= item.image %>" alt=""> -->
+                    <p class="card"><%= item.year %></p>
+                    <p class="card"><%= item.directors %></p>
+                    <p class="card"><%= item.genres %></p>
+                    <p class="card"><%= item.runtimeStr %></p>
+                    <a class="card" id="BotonEditar" href="/dashboard-admin/editar-formulario/<%= item._id %>">Editar</a>
+                    <a class="card" id="BotonEliminar" href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
                 </article>
+            </div>
             <% }) %>
         <% } else { %>
             <p> No hay películas en la base de datos… </p>
@@ -22,3 +44,4 @@
     </section>
 
 </main>
+
