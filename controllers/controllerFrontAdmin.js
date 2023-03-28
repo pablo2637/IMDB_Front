@@ -8,12 +8,11 @@ const getMovies = async (req, res) => {
     const tipo = 'getMoviesInt';
 
     const {data} = await fetchData(tipo, req);
-
     const {movies} = data;
 
 
     res.render('../views/admin/dashboard-admin.ejs', {
-        movies
+        movies: data.movies
     })
 
 }; //!FUNC-GETMOVIES

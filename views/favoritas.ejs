@@ -1,0 +1,26 @@
+<main>
+
+    <% if (arrayMovies.length > 0) { %>
+
+        <% arrayMovies.forEach(item => { %>
+            <article>
+                <h2> <%= item.title %> </h2>
+                <img src="<%= item.image %>" alt="" width="300px">
+                <p><%= item.year %></p>
+                <p><%= item.directors %></p>
+                <p><%= item.genres %></p>
+                <p><%= item.runtimeStr %></p>
+                <a href="/dashboard-usuario/detalle-pelicula/<%= item.id_movie %>">Ver detalles</a>
+                <a href="/dashboard-usuario/eliminar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Eliminar</a>
+                <a href="/dashboard-usuario/guardar-favorita/<%= user_id %>?movie_id=<%= item.id_movie %>">Añadir a favoritas</a> <!-- BOTÓN DE PRUEBA; PENDIENTE ELIMINAR -->
+                <div> (div oculto para preguntar si está seguro que quiere eliminar) </div>
+            </article>
+        <% }) %>
+
+    <% } else { %>
+     
+        <p> No hay películas favoritas… </p>
+     
+    <% } %>
+
+</main>

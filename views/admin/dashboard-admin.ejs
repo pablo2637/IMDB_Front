@@ -24,8 +24,7 @@
         <% if (movies.length > 0) { %>
             <% movies.forEach(item => { %>
 
-                <div class="espacios" >
-                
+                <div class="espacios" >                
                 <article class="card">
                     <h2 class="card "><%= item.title %></h2>
                     <!-- <img class="card" src="<%= item.image %>" alt=""> -->
@@ -35,6 +34,7 @@
                     <p class="card"><%= item.runtimeStr %></p>
                     <a class="card" id="BotonEditar" href="/dashboard-admin/editar-formulario/<%= item._id %>">Editar</a>
                     <a class="card" id="BotonEliminar" href="/dashboard-admin/eliminar/<%= item._id %>">Eliminar</a>
+
                 </article>
             </div>
             <% }) %>
