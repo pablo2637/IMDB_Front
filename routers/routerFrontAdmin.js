@@ -10,6 +10,8 @@ const {
     eliminarMovie
 } = require('../controllers/controllerFrontAdmin');
 
+const {upload} = require('../middlewares/uploadImage');
+
 
 
 //* MOSTRAR TODAS LAS PELÍCULAS
@@ -21,7 +23,9 @@ router.get('/nueva', mostrarFormularioNueva);
 
 
 //* CREAR NUEVA PELÍCULA
-router.post('/crear-pelicula', crearMovieNueva); // ruta del action del form
+router.post('/crear-pelicula', [
+    upload
+], crearMovieNueva); // ruta del action del form
 
 
 //* MOSTRAR EL FORMULARIO DE EDITAR PELÍCULA

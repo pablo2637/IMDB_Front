@@ -15,9 +15,11 @@
 
 <section id="formulario">
 
-  <form action="/dashboard-admin/crear-pelicula" method="post">
+  <form action="/dashboard-admin/crear-pelicula" method="post" enctype="multipart/form-data">
     <label for="title">Título:</label>
     <input type="text" id="titulo" name="title" placeholder="Título de la película">
+
+    <input type="file" name="photo">
 
     <label for="image">Imagen (URL):</label>
     <input type="url" id="image" name="image">
