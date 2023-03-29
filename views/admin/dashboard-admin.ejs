@@ -1,24 +1,28 @@
 <link rel="stylesheet" href="/AdminPublic.css">
 
+
+
 <main>
-    <section class="navegacion">
-    
+
+
+    <header class="main-header">
+       
         <h1>Administrador</h1>
 
-        <div class="menu-hamburguesa">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <nav>
-            <ul>
-                <li><a class="crearPelicula" href="/dashboard-admin/nueva">Crear película</a></li>
-                <li><a class="logout" href="/">Log out</a></li>
-            </ul>
+        <nav id="nav" class="main-nav">
+          <div class="nav-links">
+            <a class="link-item" href="/dashboard-admin/nueva">Crear Pelicula</a>
+            <a class="link-item" href="/">Log out</a>
+          </div>
         </nav>
 
-    </section>
+        <button id="button-menu" class="button-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
 
     <section class="tarjetas">
         <% if (movies.length > 0) { %>
@@ -43,6 +47,8 @@
             <p> No hay películas en la base de datos… </p>
         <% } %>
     </section>
+
+    <script src="/js/menu.js"></script>
 
 </main>
 

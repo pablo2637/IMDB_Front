@@ -27,25 +27,30 @@ const mostrarFormularioNueva = async (req, res) => {
 
 
 const crearMovieNueva = async (req, res) => {
+
+ //const id = req.params.id;
+ const tipo = 'postMovieInt';
+ 
+try {
   
-  const tipo = 'postMovieInt';
+  const form  = {opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor}
+  req.body.opinions=form
 
-  req.body.image = `${urlBase}/${req.file.filename}`;
+  const data = await fetchData(tipo,req);
 
-  try {
-  
-    const data = await fetchData(tipo,req);
-    
-      if (data.ok) {
-        res.redirect('/dashboard-admin');
-      } else {
-        res.status(400).send({ error: 'Error al crear la película.' });
-      };
-
-  } catch (error) {
-
-    console.log(error);
+  console.log(data.opinions, "este es el de opinions")
+  if (data.ok) {
+   
+    res.redirect('/dashboard-admin');
+  } else {
     res.status(400).send({ error: 'Error al crear la película.' });
+  }
+} catch (error) {
+  console.log(error);
+  res.status(500).send({ error: 'Error al crear la película.' });
+}
+}; //!FUNC-CREARMOVIENUEVA
+
 
   };
 
@@ -75,7 +80,18 @@ const mostrarFormularioEditar = async (req, res) => {
 
 const editarMovie = async (req, res) => {
 
-  const tipo = 'putMovieInt';
+
+    const tipo = 'putMovieInt';
+
+    const form  = {opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor}
+    req.body.opinions=form
+
+   
+    try {
+        const {data} = await fetchData(tipo, req);
+              
+        console.log(data)
+
 
   req.body.image = `${urlBase}/${req.file.filename}`;
 
