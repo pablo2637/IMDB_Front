@@ -10,7 +10,7 @@ const {
     eliminarMovie
 } = require('../controllers/controllerFrontAdmin');
 
-const {upload} = require('../middlewares/uploadImage');
+const {upload} = require('../helpers/uploadImage');
 
 
 
