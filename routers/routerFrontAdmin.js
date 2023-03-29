@@ -32,7 +32,9 @@ router.post('/crear-pelicula', [
 router.get('/editar/:id', mostrarFormularioEditar);
 
 //* EDITAR UNA PELÍCULA
-router.post('/editar/:id', editarMovie);
+router.post('/editar/:id', [
+    upload
+], editarMovie);
 
 
 //* ELIMINAR UNA PELÍCULA
