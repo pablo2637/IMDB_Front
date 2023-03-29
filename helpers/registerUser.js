@@ -15,8 +15,9 @@ const {
     setRolCookie } = require('./cookies')
 
 const isAdmin = async (req, res) => {
-    const rolCookie = getRolCookie(req, res);
-    if (rolCookie) return rolCookie;
+    // const rolCookie = getRolCookie(req, res);
+    // console.log('rolcookie',rolCookie)
+    // if (rolCookie) return rolCookie;
 
     let client, data;
     try {
