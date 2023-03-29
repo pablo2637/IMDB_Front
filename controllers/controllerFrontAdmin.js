@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const {fetchData} = require('../helpers/fetchData');
 
+const urlBase = 'http://localhost:3005/images';
 
 
 const getMovies = async (req, res) => {
@@ -26,24 +27,29 @@ const mostrarFormularioNueva = async (req, res) => {
 
 
 const crearMovieNueva = async (req, res) => {
- //const id = req.params.id;
- const tipo = 'postMovieInt';
- console.log(req.body)
-try {
-  //const { body } =req
-  const data = await fetchData(tipo,req);
-  console.log(data)
-  if (data.ok) {
-    res.redirect('/dashboard-admin');
-  } else {
-    res.status(400).send({ error: 'Error al crear la película.' });
-  }
-} catch (error) {
-  console.log(error);
-  res.status(400).send({ error: 'Error al crear la película.' });
-}
-}; //!FUNC-CREARMOVIENUEVA
+  
+  const tipo = 'postMovieInt';
 
+  req.body.image = `${urlBase}/${req.file.filename}`;
+
+  try {
+  
+    const data = await fetchData(tipo,req);
+    
+      if (data.ok) {
+        res.redirect('/dashboard-admin');
+      } else {
+        res.status(400).send({ error: 'Error al crear la película.' });
+      };
+
+  } catch (error) {
+
+    console.log(error);
+    res.status(400).send({ error: 'Error al crear la película.' });
+
+  };
+
+}; //!FUNC-CREARMOVIENUEVA
 
 
 const mostrarFormularioEditar = async (req, res) => {
@@ -69,21 +75,20 @@ const mostrarFormularioEditar = async (req, res) => {
 
 const editarMovie = async (req, res) => {
 
-    const id = req.params.id;
-    const tipo = 'putMovieInt';
-    //console.log(req.body)
-    //const datos= (req, id, body)
-    try {
-        const {data} = await fetchData(tipo, req);
-              
-        console.log(data)
-        //console.log(body)
+  const tipo = 'putMovieInt';
 
-        res.redirect('/dashboard-admin');
+  req.body.image = `${urlBase}/${req.file.filename}`;
 
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+      const {data} = await fetchData(tipo, req);
+            
+      console.log(data)
+
+      res.redirect('/dashboard-admin');
+
+  } catch (error) {
+      console.log(error);
+  }
 //funcion 
 
 }; //!FUNC-EDITARMOVIE
