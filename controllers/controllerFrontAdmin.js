@@ -28,19 +28,25 @@ const mostrarFormularioNueva = async (req, res) => {
 const crearMovieNueva = async (req, res) => {
  //const id = req.params.id;
  const tipo = 'postMovieInt';
- console.log(req.body)
+ 
 try {
-  //const { body } =req
+  
+  const form  = {opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor}
+  req.body.opinions=form
+
   const data = await fetchData(tipo,req);
-  console.log(data)
+
+  console.log(data.opinions, "este es el de opinions")
   if (data.ok) {
+    res.status(201).send({ msg: 'Esta todo bien'})
+
     res.redirect('/dashboard-admin');
   } else {
     res.status(400).send({ error: 'Error al crear la película.' });
   }
 } catch (error) {
   console.log(error);
-  res.status(400).send({ error: 'Error al crear la película.' });
+  res.status(500).send({ error: 'Error al crear la película.' });
 }
 }; //!FUNC-CREARMOVIENUEVA
 
@@ -69,15 +75,17 @@ const mostrarFormularioEditar = async (req, res) => {
 
 const editarMovie = async (req, res) => {
 
-    const id = req.params.id;
+
     const tipo = 'putMovieInt';
-    //console.log(req.body)
-    //const datos= (req, id, body)
+
+    const form  = {opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor}
+    req.body.opinions=form
+
+   
     try {
         const {data} = await fetchData(tipo, req);
               
         console.log(data)
-        //console.log(body)
 
         res.redirect('/dashboard-admin');
 
