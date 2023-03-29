@@ -1,9 +1,9 @@
-<%- include('templates/header',{urlTitle}) %>
+<%- include('templates/header',{urlTitle, user}) %>
 
     <h1><%- user.name %></h1>
     <h2><%- user.email %></h2>
 
-    <a href="/userSearch/search">Buscar Películas</a>
-    <a href="">Ir a Favoritos</a>
+    <a href="/dashboard-usuario/userSearch/search">Buscar Películas</a>
+    <a href="/dashboard-usuario/favoritas/<%- user.id %>">Ir a Favoritos</a>
 
 <%- include('templates/footer') %>

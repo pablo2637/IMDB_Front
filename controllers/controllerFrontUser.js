@@ -5,7 +5,22 @@ const {
     getFavsCookie,
     setFavsCookie } = require('../helpers/cookies')
 
-const searchMoviesC = async (req, res) => {   
+const { updateFavs } = require('../helpers/favorites')
+
+const search = async (req, res) => {
+    const user = req.oidc.user;
+    user.id = await getIdCookie(req, res);
+
+    res.render('search-movies', {
+        ok: false,
+        movies: [],
+        opinions: [],
+        urlTitle: 'Buscador de Películas',
+        user
+    })
+}
+
+const searchMoviesC = async (req, res) => {
     let movies, opinions, response;
     let api = 'mongo'
 
@@ -31,19 +46,18 @@ const searchMoviesC = async (req, res) => {
     movies = movies.concat(response.data);
 
     if (movies) {
-        req.cookieID = getIdCookie(req, res);
-        const favorites = await fetchData('getFavorites', req);
+        const favUser = await getFavsCookie(req, res);
+        movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
-        if (favorites) {
-            const favUser = favorites.data.data;
-            setFavsCookie(req, res, JSON.stringify(favUser));
-            movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
-        }
+        const user = req.oidc.user;
+        user.id = await getIdCookie(req, res);
 
         res.render('search-movies', {
             ok: true,
             movies,
-            opinions
+            opinions,
+            urlTitle: 'Buscador de Películas',
+            user
         })
     }
 }
@@ -65,13 +79,17 @@ const getMovieC = async (req, res) => {
         if (tipo == 'getMovieInt') movie = response.data.response;
         else movie = response.data;
 
-        const favUser = getFavsCookie(req, res);
+        const favUser = await getFavsCookie(req, res);
         movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
 
+
+        const user = req.oidc.user;
+        user.id = await getIdCookie(req, res);
         res.render('show-movie', {
             ok: true,
             movie,
-            opinions
+            opinions,
+            user
         })
     }
 }
@@ -82,50 +100,64 @@ const fetchOpinions = async (req, res) => {
 
     const opSC = opinions.data.SC.data;
     const opRT = opinions.data.RT.data;
-    
-    const favUser = getFavsCookie(req, res);
+
+    const favUser = await getFavsCookie(req, res);
     movie.data.fav = favUser.find(f => f.movie_id == movie.data.id_movie);
-    
+
+    const user = req.oidc.user;
+    user.id = await getIdCookie(req, res);
     if (opSC || opRT) res.render('show-movie', {
         ok: true,
         movie: movie.data,
-        opinions: { RT: opRT, SC: opSC }
+        opinions: { RT: opRT, SC: opSC },
+        user
     });
     else res.render('show-movie', {
         ok: true,
         movie: movie.data,
-        opinions: 'No'
+        opinions: 'No',
+        user
     });
 }
 
 
 const getFavorites = async (req, res) => {
 
-    const id = req.params.user_id; // se captura para pasárselo al botón de eliminar
+    // const id = req.params.user_id; // se captura para pasárselo al botón de eliminar
 
     const arrayMovies = [];
 
     try {
 
         const { data } = await fetchData('getFavorites', req);
+        await setFavsCookie(req, res, data.data);
 
         const movies = data.data.map(movie => movie = movie.movie_id); // extraigo solo los 'movie_id'
-        
-        for(let i = 0; i < movies.length; i++){
-            let {data} = await fetchData('getMovieExtBack', movies[i]);
+
+        let tipo;
+        for (let i = 0; i < movies.length; i++) {
+            if (movies[i].includes('tt')) tipo = 'getMovieExtBack';
+            else tipo = 'getMovieIntBack';
+
+            let { data } = await fetchData(tipo, movies[i]);
             arrayMovies.push(data);
         };
-        
+
     } catch (error) {
 
-        console.log(error);
-        
+        console.log('error:', error);
+
     };
 
+    const user = req.oidc.user;
+    user.id = await getIdCookie(req, res);
+
+    const favUser = await getFavsCookie(req, res);
+    arrayMovies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
     res.render('../views/favoritas.ejs', {
         arrayMovies,
-        user_id: id
+        user
     });
 
 }; //!FUNC-GETFAVORITES
@@ -143,14 +175,16 @@ const deleteFavorite = async (req, res) => {
     try {
 
         await fetchData(tipo, datos);
-        
+
     } catch (error) {
 
         console.log(error);
-        
+
     };
 
-    res.redirect(`/dashboard-usuario/favoritas/${req.params.user_id}`);
+    const user = req.oidc.user;
+    user.id = await getIdCookie(req, res);    
+    res.redirect(`/dashboard-usuario/favoritas/${getIdCookie(req, res)}`);
 
 }; //!FUNC-DELETEFAVORITE
 
@@ -158,7 +192,8 @@ const deleteFavorite = async (req, res) => {
 module.exports = {
     getFavorites,
     deleteFavorite,
-     searchMoviesC,
+    searchMoviesC,
+    search,
     getMovieC,
     fetchOpinions
 };

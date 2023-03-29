@@ -64,11 +64,11 @@ const fetchData = async (tipo, data) => {
 
         //Scrapping opiniones        
         case 'getOpinions':
-            url = `${urlBaseBack}/${urlAPI}/${urlScrapping}/?title=${body.title.replace(' ','+')}&year=${body.year}`;
+            url = `${urlBaseBack}/${urlAPI}/${urlScrapping}/?title=${body.title.replace(' ', '+')}&year=${body.year}`;
             break;
 
         //Favorites
-        case 'getFavorites':
+        case 'getFavoritesCid':
             url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${data.cookieID}`;
             break;
 
@@ -76,8 +76,11 @@ const fetchData = async (tipo, data) => {
         case 'getMovieExtBack':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${data}`;
             break;
+        case 'getMovieIntBack':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${data}`;
+            break;
 
-            
+
         //API PostgreSQL: dashboard-usuario/favoritas **************************************************
         case 'getFavorites':
             url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
@@ -90,6 +93,8 @@ const fetchData = async (tipo, data) => {
 
     //Fetch
     try {
+        console.log('url:', url, 'options:', options)
+
         const request = await fetch(url, options);
         const response = await request.json();
         if (!response) return {

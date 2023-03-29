@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const { requiresAuth } = require('express-openid-connect');
-const { registerUser } = require('../helpers/registerUser')
+
+const {
+    registerUser,
+    logoutUser } = require('../helpers/registerUser')
 
 const { redirectUser } = require('../middlewares/redirectUser');
 
@@ -11,6 +14,8 @@ const {
     userDashboard } = require('../controllers/controllerFront')
 
 router.get('/', (req, res) => { res.render('index') });
+
+router.get('/customLogout', logoutUser);
 
 router.get('/dashboard',
     requiresAuth(),

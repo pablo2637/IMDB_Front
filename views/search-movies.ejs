@@ -1,4 +1,5 @@
-    <%- include('templates/header', {urlTitle: 'Buscar Películas'}) %> 
+    <%- include('templates/header', {urlTitle}) %> 
+    <!-- : 'Buscar Películas' -->
 
     <h1>Buscador</h1>
     <% if (ok) { %>
@@ -18,9 +19,9 @@
                 <% movies.forEach(movie=> { %>
                     <tr>
                         <% if (movie.fav) { %>
-                            <th><button class="btnFav favorita"><i class="fa-solid fa-star fa-xl"></i></button></th>
+                            <th><button id="btnFav<%- movie.id_movie %>" class="btnFav favorita" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>
                         <% } else { %>
-                            <th><button  class="btnFav"><i class="fa-solid fa-star fa-xl"></i></button></th>      
+                            <th><button id="btnFav<%- movie.id_movie %>" class="btnFav" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>      
                         <% } %>
                         
                         <td><img src="<%- movie.image %>" alt="" height="50"></td>
@@ -33,7 +34,7 @@
                         <!-- <td><form action="/userSearch/showMovie/<%- movie.id_movie %>" method="post">
                             <input type="submit" value="Ver">
                         </form></td> -->
-                        <td><a href="/userSearch/showMovie/<%- movie.id_movie %>?"><i class="fa-solid fa-circle-info fa-xl" style="color: #9194af;"></i></a></td>
+                        <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><i class="fa-solid fa-circle-info fa-xl" style="color: #9194af;"></i></a></td>
                     </tr>
                 <% }) %>
             </tbody>
