@@ -5,8 +5,10 @@ const urlApiKeyIMDB = process.env.API_IMDB;
 const urlMoviesMongo = 'movies/mongo';
 const urlMoviesIMDB = 'movies/imdb';
 const urlFavorites = 'favorites';
-const urlDashboardUser = 'dashboard-usuario'
 const urlScrapping = 'scrapping'
+const urlBaseIMDB = 'https://imdb-api.com/API';
+const urlAPIFavorites = 'api/favorites'
+const urlDashboardUser = 'dashboard-usuario';
 
 const fetchData = async (tipo, data) => {
     // console.log('data',data)
@@ -53,14 +55,13 @@ const fetchData = async (tipo, data) => {
             break;
 
 
-        //Api externa imdb **************************************************
+        //API externa: IMDb **************************************************
         case 'getMoviesExt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/?title=${body.title}`;
             break;
         case 'getMovieExt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${params.id}`;
             break;
-
 
         //Scrapping opiniones        
         case 'getOpinions':
@@ -72,25 +73,19 @@ const fetchData = async (tipo, data) => {
             url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${data.cookieID}`;
             break;
 
-        //?API interna SQL: usuarios.favoritas **************************************************
-        case 'getMoviesFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/favoritas/${params.id_user}`;
+        //API externa: IMDb (ruta back) **************************************************
+        case 'getMovieExtBack':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${data}`;
             break;
-        case 'guardarMovieFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/guardar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-            options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON // params.id_movie
-            }
+
+            
+        //API PostgreSQL: dashboard-usuario/favoritas **************************************************
+        case 'getFavorites':
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params.user_id}`;
             break;
-        case 'actualizarMoviesFav':
-            url = `${urlBaseBack}/${urlDashboardUser}/eliminar-fav/${params.id_user}?id_movie=${params.id_movie}`; //! pendiente revisar
-            options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: bodyJSON // params.id_movie
-            };
+        case 'deleteFavorite':
+            url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
+            options = { method: 'DELETE' };
             break;
     };
 

@@ -32,9 +32,10 @@ app.use(express.json())                             // Parse application/json
 
 app.use(auth(config));                              //Auth0 config
 
-//Rutas
-app.use('/', require('./routers/routerFront'))                      
-app.use('/userSearch', require('./routers/routerFrontUser'))        
+//Rutas                     
+app.use('/userSearch', require('./routers/routerFrontUser')) 
+app.use('/', require('./routers/routerFront')); //ruta Front
+app.use('/dashboard-usuario', require('./routers/routerFrontUser')); // ruta usuario películas favoritas
 app.use('/dashboard-admin', require('./routers/routerFrontAdmin')); // ruta admin para crear, editar y eliminar películas
 
 
