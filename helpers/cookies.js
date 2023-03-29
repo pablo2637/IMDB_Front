@@ -46,9 +46,9 @@ const getFavsCookie = (req, res) => {
 
 
 const clearCookies = (req, res) => {
-    res.clearCookie('idIMDB')
-    res.clearCookie('rolIMDB')
-    res.clearCookie('favsIMDB')
+    res.clearCookie('idIMDB');
+    res.clearCookie('rolIMDB');
+    res.clearCookie('favsIMDB');
 }
 
 module.exports = {

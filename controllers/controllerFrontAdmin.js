@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const {fetchData} = require('../helpers/fetchData');
 
+const urlBase = 'http://localhost:3005/images';
 
 
 const getMovies = async (req, res) => {
@@ -26,6 +27,7 @@ const mostrarFormularioNueva = async (req, res) => {
 
 
 const crearMovieNueva = async (req, res) => {
+
  //const id = req.params.id;
  const tipo = 'postMovieInt';
  
@@ -49,6 +51,10 @@ try {
 }
 }; //!FUNC-CREARMOVIENUEVA
 
+
+  };
+
+}; //!FUNC-CREARMOVIENUEVA
 
 
 const mostrarFormularioEditar = async (req, res) => {
@@ -86,11 +92,19 @@ const editarMovie = async (req, res) => {
               
         console.log(data)
 
-        res.redirect('/dashboard-admin');
 
-    } catch (error) {
-        console.log(error);
-    }
+  req.body.image = `${urlBase}/${req.file.filename}`;
+
+  try {
+      const {data} = await fetchData(tipo, req);
+            
+      console.log(data)
+
+      res.redirect('/dashboard-admin');
+
+  } catch (error) {
+      console.log(error);
+  }
 //funcion 
 
 }; //!FUNC-EDITARMOVIE

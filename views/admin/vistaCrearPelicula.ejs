@@ -15,7 +15,7 @@
 
 <section id="formulario">
 
-  <form action="/dashboard-admin/crear-pelicula" method="post">
+  <form action="/dashboard-admin/crear-pelicula" method="post" enctype="multipart/form-data">
     <label for="title">Título:</label>
     <input type="text" id="titulo" name="title" placeholder="Título de la película">
 
@@ -43,11 +43,9 @@
 
     <label for="imdbRating">Calificación:</label>
     <input type="text" id="rating" name="rating">
-
     
     <label for="opinion">Opinion:</label>
     <input type="text" id="opinion" name="opinion">
-
 
     <label for="fecha">Fecha:</label>
     <input type="text" id="fecha" name="fecha">
@@ -55,7 +53,6 @@
     <label for="escritor">Escritor:</label>
     <input type="text" id="escritor" name="escritor">
 
-    
     <input type="hidden" id="url" name="url" value="">
 
     <input type="submit" value="Crear película">

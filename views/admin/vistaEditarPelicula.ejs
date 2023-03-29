@@ -2,11 +2,11 @@
 
 <section id="formulario">
 
-    <form action="/dashboard-admin/editar/<%= movies._id %>" method="post">
+    <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
         <input type="text" id="titulo" name="title" value="<%= movies.title %>">
 
-      
+
         <input type="hidden" id="image" name="image" value="<%= movies.image %>">
 
         <label for="year">Año:</label>
@@ -30,7 +30,6 @@
 
         <label for="opinion">Opinion:</label>
         <input type="text" id="opinion" name="opinion" value="<%= movies.opinions.opinion%>">
-
 
         <label for="date">Fecha:</label>
         <input type="text" id="fecha" name="fecha" value="<%= movies.opinions.fecha %>">
