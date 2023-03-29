@@ -58,7 +58,7 @@ const mostrarFormularioEditar = async (req, res) => {
   const tipo = 'putMovieInt';
 
   try {
-    const { data } = await fetchData(tipo, req, id);
+    const { data } = await fetchData(tipo, req);
     //console.log(data)
     //esta es la ruta del formulario que no esta creado todavia
     res.render('../views/admin/vistaEditarPelicula.ejs', {
