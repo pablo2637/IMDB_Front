@@ -8,23 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
     body.addEventListener('click', ({ target }) => {
 
         if (target.matches('i')) {
-            console.log(target.parentNode)
             if (target.parentNode.classList.contains('btnFav')) { //! aquí iría el atributo "id" del botón, que en el .ejs sería algo similar a: <%= item.id_movie %>
                 const user_id = target.parentNode.dataset.user_id;
                 const movie_id = target.parentNode.dataset.movie_id;
                 const api_movie = movie_id.includes('tt') ? 'imdb' : 'mongodb';
 
                 const data = { user_id, movie_id, api_movie };
-                const btn = document.querySelector(`#btnFav${movie_id}`);
                 
-                if (btn.classList.contains('favorita')) {
+                if (target.parentNode.classList.contains('favorita')) {
                     fetchData('deleteFavorite', data);
                 } else {
                     fetchData('addFavorite', data);
                 };
-                console.log(`#btnFav${movie_id}`)
-                console.log(btn)
-                btn.classlist.toggle('favorita');
+                target.parentNode.classList.toggle('favorita')
 
             };
         }
