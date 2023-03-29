@@ -38,8 +38,7 @@ try {
 
   console.log(data.opinions, "este es el de opinions")
   if (data.ok) {
-    res.status(201).send({ msg: 'Esta todo bien'})
-
+   
     res.redirect('/dashboard-admin');
   } else {
     res.status(400).send({ error: 'Error al crear la película.' });
