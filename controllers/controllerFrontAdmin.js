@@ -29,11 +29,14 @@ const mostrarFormularioNueva = async (req, res) => {
 const crearMovieNueva = async (req, res) => {
   //const id = req.params.id;
   const tipo = 'postMovieInt';
+  
+  req.body.image = `${urlBase}/${req.file.filename}`;
+
+  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
+  req.body.opinions = form
+
 
   try {
-
-    const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
-    req.body.opinions = form
 
     const data = await fetchData(tipo, req);
 
