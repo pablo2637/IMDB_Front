@@ -14,7 +14,7 @@ const {
 
 const { onlyAdmin } = require('../middlewares/onlyAdmin')
 
-const {upload} = require('../helpers/uploadImage');
+const { upload } = require('../helpers/uploadImage');
 
 
 //* MOSTRAR TODAS LAS PELÍCULAS
@@ -46,7 +46,7 @@ router.get('/editar/:id',
     mostrarFormularioEditar);
 
 //* EDITAR UNA PELÍCULA
-router.post('/editar/:id',[
+router.post('/editar/:id', [
     requiresAuth(),
     onlyAdmin,
     upload
