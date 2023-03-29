@@ -59,8 +59,9 @@ const mostrarFormularioEditar = async (req, res) => {
 
   try {
     const { data } = await fetchData(tipo, req);
-    //console.log(data)
-    //esta es la ruta del formulario que no esta creado todavia
+
+    console.log('CONTROLLER:', data)
+
     res.render('../views/admin/vistaEditarPelicula.ejs', {
       movies: data.response
 
@@ -77,9 +78,10 @@ const editarMovie = async (req, res) => {
 
   const tipo = 'putMovieInt';
 
+  req.body.image = `${urlBase}/${req.file.filename}`;
+
   const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
   req.body.opinions = form
-
 
   try {
     const { data } = await fetchData(tipo, req);
@@ -87,7 +89,6 @@ const editarMovie = async (req, res) => {
     console.log(data)
 
 
-    req.body.image = `${urlBase}/${req.file.filename}`;
 
 
     res.redirect('/dashboard-admin');
