@@ -8,25 +8,41 @@
 
         <label for="image">Imagen (URL):</label>
         <input type="url" id="image" name="image" value="<%= movies.image %>">
-      
+
         <label for="year">Año:</label>
         <input type="number" id="year" name="year" value="<%= movies.year %>">
-      
+
         <label for="directors">Director:</label>
         <input type="text" id="directors" name="directors" value="<%= movies.directors %>">
-      
+
         <label for="stars">Actores principales:</label>
         <input type="text" id="stars" name="stars" placeholder="Actores" value="<%= movies.stars %>">
-      
+
         <label for="genre">Género:</label>
         <input type="text" id="genre" name="genre" value="<%= movies.genre %>">
-      
+
         <label for="runtimeStr">Duración:</label>
         <input type="text" id="runtimeStr" name="runtimeStr" value="<%= movies.runtimeStr %>">
-      
-        <label for="plot">Sinopsis:</label>    
-        <textarea name="plot" id="plot" cols="30" rows="10" placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
-      
+
+        <label for="plot">Sinopsis:</label>
+        <textarea name="plot" id="plot" cols="30" rows="10"
+            placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
+
+
+        <label for="opinions">Opinion:</label>
+        <input type="text" id="opinions" name="opinions" value="<%= movies.opinions %>">
+
+
+        <label for="date">Fecha:</label>
+        <input type="text" id="date" name="date" value="<%= movies.date %>">
+
+        <label for="escritor">Escritor:</label>
+        <input type="text" id="escritor" name="escritor" value="<%= movies.escritor %>">
+
+
+        <label for="url">URL:</label>
+        <input type="hidden" id="url" name="url">
+
         <input type="submit" value="Editar">
     </form>
-</section> 
+</section>
