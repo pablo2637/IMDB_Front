@@ -5,24 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     //* EVENTOS *//
-    body.addEventListener('click', ({target}) => {
+    body.addEventListener('click', ({ target }) => {
 
-        if (target.matches('#...')) { //! aquí iría el atributo "id" del botón, que en el .ejs sería algo similar a: <%= item.id_movie %>
-            const user_id = target.dataset.user_id;
-            const movie_id = target.dataset.movie_id;
-            const api_movie = movie_id.includes('tt') ? 'imdb' : 'mongodb';
-            
-            const data = {user_id, movie_id, api_movie};
+        if (target.matches('i')) {
+            console.log(target.parentNode)
+            if (target.parentNode.classList.contains('btnFav')) { //! aquí iría el atributo "id" del botón, que en el .ejs sería algo similar a: <%= item.id_movie %>
+                const user_id = target.parentNode.dataset.user_id;
+                const movie_id = target.parentNode.dataset.movie_id;
+                const api_movie = movie_id.includes('tt') ? 'imdb' : 'mongodb';
 
-            if (target.classList.contains('favorita')) {
-                fetchData('deleteFavorite', data);
-            } else {
-                fetchData('addFavorite', data);
+                const data = { user_id, movie_id, api_movie };
+                const btn = document.querySelector(`#btnFav${movie_id}`);
+                
+                if (btn.classList.contains('favorita')) {
+                    fetchData('deleteFavorite', data);
+                } else {
+                    fetchData('addFavorite', data);
+                };
+                console.log(`#btnFav${movie_id}`)
+                console.log(btn)
+                btn.classlist.toggle('favorita');
+
             };
-
-            target.classlist.toggle('favorita');
-
-        };
+        }
 
     }); //!EV-CLICK
 
@@ -47,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 url = `http://localhost:3000/api/favorites/${data.user_id}?movie_id=${data.movie_id}`;
                 options = { method: 'DELETE' };
                 break;
-        
+
         }; //SWITCH
 
         try {
@@ -76,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
         }; //TRY-CATCH
-    
+
     }; //!FUNC-FETCHDATA
 
 }); //!LOAD

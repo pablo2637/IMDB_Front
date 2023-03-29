@@ -1,6 +1,6 @@
 
-const setIdCookie = (req, res, id) => {
-    res.cookie('idIMDB', id,
+const setIdCookie = async (req, res, id) => {
+    await res.cookie('idIMDB', id,
         {
             httpOnly: true,
             secure: false,
@@ -9,8 +9,8 @@ const setIdCookie = (req, res, id) => {
         })
 }
 
-const setFavsCookie = (req, res, favs) => {
-    res.cookie('favsIMDB', favs,
+const setFavsCookie = async (req, res, favs) => {
+    await res.cookie('favsIMDB', favs,
         {
             httpOnly: true,
             secure: false,
@@ -19,8 +19,8 @@ const setFavsCookie = (req, res, favs) => {
         })
 }
 
-const setRolCookie = (req, res, rol) => {
-    res.cookie('rolIMDB', rol,
+const setRolCookie = async (req, res, rol) => {
+    await res.cookie('rolIMDB', rol,
         {
             httpOnly: true,
             secure: false,
@@ -29,26 +29,27 @@ const setRolCookie = (req, res, rol) => {
         })
 }
 
-const getIdCookie = (req, res) => {
+const getIdCookie = async (req, res) => {
     const { idIMDB } = req.cookies
     return idIMDB;
 }
 
-const getRolCookie = (req, res) => {
+const getRolCookie = async (req, res) => {
     const { rolIMDB } = req.cookies
     return rolIMDB;
 }
 
-const getFavsCookie = (req, res) => {
+const getFavsCookie = async (req, res) => {
     const { favsIMDB } = req.cookies
-    return JSON.parse(favsIMDB);
+
+    if (favsIMDB) return (favsIMDB);
+    else return [];
 }
 
-
-const clearCookies = (req, res) => {
-    res.clearCookie('idIMDB');
-    res.clearCookie('rolIMDB');
-    res.clearCookie('favsIMDB');
+const clearCookies = async (req, res) => {
+    await res.clearCookie('idIMDB');
+    await res.clearCookie('rolIMDB');
+    await res.clearCookie('favsIMDB');
 }
 
 module.exports = {

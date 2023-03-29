@@ -9,10 +9,11 @@ const config = {
     secret: process.env.A0_SECRET_KEY,
     baseURL: process.env.URL_BASE,
     clientID: process.env.A0_CLIENT_ID,
-    issuerBaseURL: process.env.A0_ISSUER_BASE_URL
+    issuerBaseURL: process.env.A0_ISSUER_BASE_URL,
+    // routes: { postLogoutRedirect: '/customLogout' }
 };
 
-const cookieParser = require('cookie-parser');     
+const cookieParser = require('cookie-parser');
 const { strict } = require('assert');
 
 
@@ -33,8 +34,8 @@ app.use(express.json())                             // Parse application/json
 app.use(auth(config));                              //Auth0 config
 
 //Rutas                     
-app.use('/userSearch', require('./routers/routerFrontUser')) 
-app.use('/', require('./routers/routerFront')); //ruta Front
+app.use('/', require('./routers/routerFront'));                     //ruta Front
+// app.use('/userSearch', require('./routers/routerFrontUser'))        //ruta usuario búsqueda películas
 app.use('/dashboard-usuario', require('./routers/routerFrontUser')); // ruta usuario películas favoritas
 app.use('/dashboard-admin', require('./routers/routerFrontAdmin')); // ruta admin para crear, editar y eliminar películas
 

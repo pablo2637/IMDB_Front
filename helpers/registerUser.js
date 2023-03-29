@@ -9,15 +9,20 @@ const pool = new Pool({
 });
 
 const {
+    updateFavs,
+    updateFavsID } = require('../helpers/favorites')
+
+const {
     clearCookies,
     getRolCookie,
     setIdCookie,
-    setRolCookie } = require('./cookies')
+    setRolCookie,
+    getIdCookie } = require('./cookies')
 
 const isAdmin = async (req, res) => {
-    // const rolCookie = getRolCookie(req, res);
-    // console.log('rolcookie',rolCookie)
-    // if (rolCookie) return rolCookie;
+    const rolCookie = await getRolCookie(req, res);
+    console.log('rolcookie', rolCookie)
+    if (rolCookie) return rolCookie;
 
     let client, data;
     try {
@@ -29,14 +34,33 @@ const isAdmin = async (req, res) => {
         client.release();
     }
 
-    setRolCookie(req, res, data.rows[0].rol)
+    await setRolCookie(req, res, data.rows[0].rol)
     return data.rows[0].rol;
+}
+
+const logoutUser = async (req, res) => {
+    let client;
+    try {
+        const fecha = new Date();
+        const email = req.oidc.user.email;
+
+        client = await pool.connect();
+        await client.query(queriesAuth.insertLog, [fecha.toLocaleString(), 'logout', email]);
+
+    } catch (e) {
+        throw e
+    } finally {
+        client.release();
+    }
+
+    await clearCookies(req, res);
+    res.redirect('/logout');
 }
 
 const registerUser = async (req, res, next) => {
     let client, data, user, correo, id;
     try {
-        clearCookies(req, res);
+        await clearCookies(req, res);
 
         client = await pool.connect();
         data = await client.query(queriesAuth.getUser, [req.oidc.user.email]);
@@ -62,17 +86,18 @@ const registerUser = async (req, res, next) => {
         }
 
         id = await client.query(queriesAuth.getUserID, [correo])
+        await setIdCookie(req, res, id.rows[0].user_id);
     } catch (e) {
         throw e
     } finally {
         client.release();
     }
-
-    setIdCookie(req, res, id.rows[0].user_id);            
+    await updateFavsID(req, res, id.rows[0].user_id);
     next();
 }
 
 module.exports = {
     registerUser,
-    isAdmin
+    isAdmin,
+    logoutUser
 }
