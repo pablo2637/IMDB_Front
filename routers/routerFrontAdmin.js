@@ -14,6 +14,9 @@ const {
 
 const { onlyAdmin } = require('../middlewares/onlyAdmin')
 
+const {upload} = require('../helpers/uploadImage');
+
+
 //* MOSTRAR TODAS LAS PELÍCULAS
 router.get('/',
     requiresAuth(),
@@ -29,10 +32,11 @@ router.get('/nueva',
 
 
 //* CREAR NUEVA PELÍCULA
-router.post('/crear-pelicula',
+router.post('/crear-pelicula', [
     requiresAuth(),
     onlyAdmin,
-    crearMovieNueva); // ruta del action del form
+    upload
+], crearMovieNueva); // ruta del action del form
 
 
 //* MOSTRAR EL FORMULARIO DE EDITAR PELÍCULA
@@ -42,10 +46,11 @@ router.get('/editar/:id',
     mostrarFormularioEditar);
 
 //* EDITAR UNA PELÍCULA
-router.post('/editar/:id',
+router.post('/editar/:id',[
     requiresAuth(),
     onlyAdmin,
-    editarMovie);
+    upload
+], editarMovie);
 
 
 //* ELIMINAR UNA PELÍCULA

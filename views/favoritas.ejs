@@ -15,8 +15,10 @@
                 <p><%= item.directors %></p>
                 <p><%= item.genres %></p>
                 <p><%= item.runtimeStr %></p>
+
                 <a href="/dashboard-usuario/userSearch/showMovie/<%- item.id_movie %>">Ver detalles</a>
                 <a href="/dashboard-usuario/eliminar-favorita/<%= user.id %>?movie_id=<%= item.id_movie %>">Eliminar</a>                
+
                 <div> (div oculto para preguntar si está seguro que quiere eliminar) </div>
             </article>
         <% }) %>

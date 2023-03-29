@@ -2,12 +2,12 @@
 
 <section id="formulario">
 
-    <form action="/dashboard-admin/editar/<%= movies._id %>" method="post">
+    <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
         <input type="text" id="titulo" name="title" value="<%= movies.title %>">
 
-        <label for="image">Imagen (URL):</label>
-        <input type="url" id="image" name="image" value="<%= movies.image %>">
+
+        <input type="hidden" id="image" name="image" value="<%= movies.image %>">
 
         <label for="year">Año:</label>
         <input type="number" id="year" name="year" value="<%= movies.year %>">
@@ -18,8 +18,8 @@
         <label for="stars">Actores principales:</label>
         <input type="text" id="stars" name="stars" placeholder="Actores" value="<%= movies.stars %>">
 
-        <label for="genre">Género:</label>
-        <input type="text" id="genre" name="genre" value="<%= movies.genre %>">
+        <label for="genres">Género:</label>
+        <input type="text" id="genre" name="genre" value="<%= movies.genres %>">
 
         <label for="runtimeStr">Duración:</label>
         <input type="text" id="runtimeStr" name="runtimeStr" value="<%= movies.runtimeStr %>">
@@ -28,20 +28,18 @@
         <textarea name="plot" id="plot" cols="30" rows="10"
             placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
 
-
-        <label for="opinions">Opinion:</label>
-        <input type="text" id="opinions" name="opinions" value="<%= movies.opinions %>">
-
+        <label for="opinion">Opinion:</label>
+        <input type="text" id="opinion" name="opinion" value="<%= movies.opinions.opinion%>">
 
         <label for="date">Fecha:</label>
-        <input type="text" id="date" name="date" value="<%= movies.date %>">
+        <input type="text" id="fecha" name="fecha" value="<%= movies.opinions.fecha %>">
 
         <label for="escritor">Escritor:</label>
-        <input type="text" id="escritor" name="escritor" value="<%= movies.escritor %>">
+        <input type="text" id="escritor" name="escritor" value="<%= movies.opinions.escritor%>">
 
+        <label for="url">:</label>
+        <input type="hidden" id="url" name="url" value="">
 
-        <label for="url">URL:</label>
-        <input type="hidden" id="url" name="url">
 
         <input type="submit" value="Editar">
     </form>
