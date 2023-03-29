@@ -13,43 +13,35 @@ const getMovies = async (req, res) => {
 
     res.render('../views/admin/dashboard-admin.ejs', {
         movies: data.movies
-    });
+    })
 
 }; //!FUNC-GETMOVIES
 
 
 const mostrarFormularioNueva = async (req, res) => {
-    
-  res.render("../views/admin/vistaCrearPelicula");
+    res.render("../views/admin/vistaCrearPelicula")
+
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
 
 
 const crearMovieNueva = async (req, res) => {
-  
-  const tipo = 'postMovieInt';
-  
-  try {
-
-    const data = await fetchData(tipo, req);
-    
-    if (data.ok) {
-
-      res.redirect('/dashboard-admin');
-
-    } else {
-
-      res.status(400).send({ error: 'Error al crear la película.' });
-
-    };
-
-  } catch (error) {
-
-    console.log(error);
+ //const id = req.params.id;
+ const tipo = 'postMovieInt';
+ console.log(req.body)
+try {
+  //const { body } =req
+  const data = await fetchData(tipo,req);
+  console.log(data)
+  if (data.ok) {
+    res.redirect('/dashboard-admin');
+  } else {
     res.status(400).send({ error: 'Error al crear la película.' });
-
-  };
-  
+  }
+} catch (error) {
+  console.log(error);
+  res.status(400).send({ error: 'Error al crear la película.' });
+}
 }; //!FUNC-CREARMOVIENUEVA
 
 

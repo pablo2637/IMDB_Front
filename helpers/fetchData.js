@@ -11,6 +11,7 @@ const urlAPIFavorites = 'api/favorites'
 const urlDashboardUser = 'dashboard-usuario';
 
 const fetchData = async (tipo, data) => {
+    // console.log('data',data)
     const body = data.body;
     const bodyJSON = JSON.stringify(data.body);
     const params = data.params || '';
@@ -90,6 +91,7 @@ const fetchData = async (tipo, data) => {
 
     //Fetch
     try {
+        console.log(url, options)
         const request = await fetch(url, options);
         const response = await request.json();
         if (!response) return {
