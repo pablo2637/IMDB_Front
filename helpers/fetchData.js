@@ -4,11 +4,14 @@ const urlAPI = 'api';
 const urlApiKeyIMDB = process.env.API_IMDB;
 const urlMoviesMongo = 'movies/mongo';
 const urlMoviesIMDB = 'movies/imdb';
+const urlFavorites = 'favorites';
+const urlScrapping = 'scrapping'
 const urlBaseIMDB = 'https://imdb-api.com/API';
 const urlAPIFavorites = 'api/favorites'
 const urlDashboardUser = 'dashboard-usuario';
 
 const fetchData = async (tipo, data) => {
+    // console.log('data',data)
     const body = data.body;
     const bodyJSON = JSON.stringify(data.body);
     const params = data.params || '';
@@ -16,13 +19,16 @@ const fetchData = async (tipo, data) => {
     let url = '';
     let options = {};
 
-    console.log(params, query, body);
+    console.log(tipo, query, params, body)
 
     switch (tipo) {
 
         //API interna mongo **************************************************
         case 'getMoviesInt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
+            break;
+        case 'getMovieTitleInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/title/${body.title}`;
             break;
         case 'getMovieInt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
@@ -47,16 +53,25 @@ const fetchData = async (tipo, data) => {
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
             options = { method: 'DELETE' }
             break;
-        
+
 
         //API externa: IMDb **************************************************
         case 'getMoviesExt':
-            url = `${urlBaseIMDB}/AdvancedSearch/${urlApiKeyIMDB}?title=${query.title}`; // busca por query "title"
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/?title=${body.title}`;
             break;
         case 'getMovieExt':
-            url = `${urlBaseIMDB}/Title/${urlApiKeyIMDB}/${params.movie_id}`; // busca por params "movie_id"
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${params.id}`;
             break;
 
+        //Scrapping opiniones        
+        case 'getOpinions':
+            url = `${urlBaseBack}/${urlAPI}/${urlScrapping}/?title=${body.title.replace(' ','+')}&year=${body.year}`;
+            break;
+
+        //Favorites
+        case 'getFavorites':
+            url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${data.cookieID}`;
+            break;
 
         //API externa: IMDb (ruta back) **************************************************
         case 'getMovieExtBack':
@@ -76,6 +91,7 @@ const fetchData = async (tipo, data) => {
 
     //Fetch
     try {
+        console.log(url, options)
         const request = await fetch(url, options);
         const response = await request.json();
         if (!response) return {

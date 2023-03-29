@@ -1,20 +1,33 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    if (!req.oidc.isAuthenticated()) return res.render("test", {
-        msg: 'No logeado',
-        isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user,
-        token: req.oidc.refreshToken
-    })
+const { requiresAuth } = require('express-openid-connect');
+const { registerUser } = require('../helpers/registerUser')
 
-    return res.render("test", {
-        msg: 'Logeado correctamente',
-        isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user,
-        token: req.oidc.refreshToken
-    })
-});
+const { redirectUser } = require('../middlewares/redirectUser');
+
+const {
+    adminDashboard,
+    userDashboard } = require('../controllers/controllerFront')
+
+router.get('/', (req, res) => { res.render('index') });
+
+router.get('/dashboard',
+    requiresAuth(),
+    registerUser,
+    redirectUser
+)
+
+router.get('/user',
+    requiresAuth(),
+    registerUser,
+    userDashboard
+)
+
+router.get('/admin',
+    requiresAuth(),
+    registerUser,
+    adminDashboard
+)
 
 module.exports = router;

@@ -12,8 +12,14 @@ const config = {
     issuerBaseURL: process.env.A0_ISSUER_BASE_URL
 };
 
+const cookieParser = require('cookie-parser');     
+const { strict } = require('assert');
+
+
 const app = express();                              //Servidor
 const port = process.env.PORT || 3005;
+
+app.use(cookieParser())                              //Cookies
 
 app.use(cors());                                    //Cors
 app.use(express.static(__dirname + '/public'));     //Carpeta static
@@ -26,7 +32,8 @@ app.use(express.json())                             // Parse application/json
 
 app.use(auth(config));                              //Auth0 config
 
-//Rutas
+//Rutas                     
+app.use('/userSearch', require('./routers/routerFrontUser')) 
 app.use('/', require('./routers/routerFront')); //ruta Front
 app.use('/dashboard-usuario', require('./routers/routerFrontUser')); // ruta usuario películas favoritas
 app.use('/dashboard-admin', require('./routers/routerFrontAdmin')); // ruta admin para crear, editar y eliminar películas

@@ -1,0 +1,58 @@
+<%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película'}) %>
+    <section>
+        <h1> <%- movie.title %> </h1>
+        <form action="" method="">
+            <input type="submit" value="Agregar a Favoritos">
+        </form>
+        <img src="<%- movie.image %>" alt="" height="200">
+        <% if (movie.fav) { %>
+            <button class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
+        <% } else { %>
+            <button  class="btnFav"><i class="fa-solid fa-star fa-2xl"></i></button>
+        <% } %>
+        <p>Año: <%- movie.year %> </p>
+        <p>Duración: <%- movie.runtimeStr %> </p>
+        <p>Géneros: <%- movie.genres %> </p>
+        <p>Director: <%- movie.directors %> </p>
+        <p>Actores: <%- movie.stars %> </p>
+        <p>Rating: <%- movie.imDbRating %> </p>
+        <p>Sinopsis: <%- movie.plot %> </p>
+    </section>
+    <section>
+        <div>
+            <h3>Opiniones:</h3>
+            <% if (opinions!='No') { %>
+                <% if (opinions!='' ) { %>
+
+                    <% if (opinions.RT.length==0) { %>
+                        <p>No hay opiniones en RottenTomatoes.</p>
+                    <% } else { %>
+                        <% opinions.RT.forEach(op=> { %>
+                            <p><%- op.opinion %></p>                        
+                            <a href="<%- op.url %>"  target="_blank"><%- op.escritor %></a>
+                            <p><%- op.fecha %></p>                        
+                        <% }) %>
+                    <% } %>
+
+                    <% if (opinions.SC.length==0) { %>
+                        <p>No hay opiniones en SensaCine.</p>
+                    <% } else { %>
+                        <% opinions.SC.forEach(op=> { %>
+                            <p><%- op.opinion %></p>                        
+                            <a href="<%- op.url %>" target="_blank"><%- op.escritor %></a>
+                            <p><%- op.fecha %></p>                        
+                        <% }) %>
+                    <% } %>
+
+                <% } else { %>
+
+                    <!-- <p>Buscando opiniones...</p> -->
+                    <span class="loader"></span>
+                <% } %>
+            <% } else { %>
+                <p>No hay opiniones para esta película</p>
+            <% } %>
+        </div>
+    </section>
+        
+<%- include('templates/footer') %>
