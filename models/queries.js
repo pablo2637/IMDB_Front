@@ -4,6 +4,9 @@ const queriesAuth = {
                     INNER JOIN
                     rols AS r ON u.user_id = r.user_id
                 WHERE u.email = $1;`,
+    getUserID: `SELECT u.user_id 
+                FROM users AS u
+                WHERE u.email = $1;`,
     insertUser: `INSERT INTO users(name, email, auth0_id)
                     VALUES ($1, $2, $3);`,
     insertRol: `INSERT INTO rols(rol, user_id)

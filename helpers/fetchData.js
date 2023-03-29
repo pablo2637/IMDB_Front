@@ -31,26 +31,26 @@ const fetchData = async (tipo, data) => {
         case 'getMovieInt':
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
             break;
-        // case 'postMovieInt':
-        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
-        //     options = {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: bodyJSON
-        //     }
-        //     break;
-        // case 'putMovieInt':
-        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
-        //     options = {
-        //         method: 'PUT',
-        //         headers: { 'Content-Type': 'application/json' },
-        //         body: bodyJSON
-        //     }
-        //     break;
-        // case 'deleteMovieInt':
-        //     url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
-        //     options = { method: 'DELETE' }
-        //     break;
+        case 'postMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}`;
+            options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON
+            }
+            break;
+        case 'putMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+            options = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: bodyJSON
+            }
+            break;
+        case 'deleteMovieInt':
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesMongo}/${params.id}`;
+            options = { method: 'DELETE' }
+            break;
 
 
         //Api externa imdb **************************************************
@@ -58,7 +58,7 @@ const fetchData = async (tipo, data) => {
             url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/?title=${body.title}`;
             break;
         case 'getMovieExt':
-            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/id/${params.id}`;
+            url = `${urlBaseBack}/${urlAPI}/${urlMoviesIMDB}/${params.id}`;
             break;
 
 
@@ -69,7 +69,7 @@ const fetchData = async (tipo, data) => {
 
         //Favorites
         case 'getFavorites':
-            url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${query.id}`;
+            url = `${urlBaseBack}/${urlAPI}/${urlFavorites}/${data.cookieID}`;
             break;
 
         //?API interna SQL: usuarios.favoritas **************************************************

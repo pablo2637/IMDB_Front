@@ -7,8 +7,8 @@ const userDashboard = (req, res) => {
 
 const adminDashboard = async (req, res) => {
     const user = req.oidc.user;
-    if (await isAdmin(req) == 'admin') res.render('dashboard-admin', { user })
-    else res.render('dashboard-user', { user })
+    if (await isAdmin(req,res) == 'admin') res.render('dashboard-admin', { user, urlTitle:'Dashboard admin' })
+    else res.render('dashboard-user', { user, urlTitle:'Dashboard usuario' })
 }
 
 module.exports = {

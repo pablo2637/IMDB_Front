@@ -4,11 +4,7 @@ const router = express.Router();
 const { requiresAuth } = require('express-openid-connect');
 const { registerUser } = require('../helpers/registerUser')
 
-
-const {
-    // validateUser,
-    // registerUser,
-    redirectUser } = require('../middlewares/redirectUser');
+const { redirectUser } = require('../middlewares/redirectUser');
 
 const {
     adminDashboard,

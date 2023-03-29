@@ -1,9 +1,13 @@
 const { fetchData } = require("../helpers/fetchData")
+const {
+    getIdCookie,
+    getFavsCookie,
+    setFavsCookie } = require('../helpers/cookies')
 
-const searchMoviesC = async (req, res) => {
-    // console.log('body', req.body, 'params', req.params, 'query', req.query)    
+const searchMoviesC = async (req, res) => {   
     let movies, opinions, response;
     let api = 'mongo'
+
     response = await fetchData('getMovieTitleInt', req);
     movies = response.data.response;
     movies.map(mv => {
@@ -11,7 +15,7 @@ const searchMoviesC = async (req, res) => {
         mv.year = `(${mv.year.toString()})`;
         mv.id_movie = mv._id;
     });
-    opinions = ''//movies.data.opinions;
+    opinions = '';
 
     response = await fetchData('getMoviesExt', req);
     api = 'imdb';
@@ -26,11 +30,14 @@ const searchMoviesC = async (req, res) => {
     movies = movies.concat(response.data);
 
     if (movies) {
-        // const favorites = await fetchData('getFavorites', );
-        // console.log(favorites)
-        // if (favorites) {
+        req.cookieID = getIdCookie(req, res);
+        const favorites = await fetchData('getFavorites', req);
 
-        // }
+        if (favorites) {
+            const favUser = favorites.data.data;
+            setFavsCookie(req, res, JSON.stringify(favUser));
+            movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
+        }
 
         res.render('search-movies', {
             ok: true,
@@ -41,7 +48,6 @@ const searchMoviesC = async (req, res) => {
 }
 
 const getMovieC = async (req, res) => {
-    // console.log('body', req.body, 'params', req.params, 'query', req.query)
     let opinions = '', movie;
     let tipo = 'getMovieInt'
 
@@ -53,10 +59,13 @@ const getMovieC = async (req, res) => {
         RT: response.data.response.opinions,
         SC: ''
     }
-    console.log(response)
+
     if (response) {
         if (tipo == 'getMovieInt') movie = response.data.response;
         else movie = response.data;
+
+        const favUser = getFavsCookie(req, res);
+        movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
 
         res.render('show-movie', {
             ok: true,
@@ -72,6 +81,10 @@ const fetchOpinions = async (req, res) => {
 
     const opSC = opinions.data.SC.data;
     const opRT = opinions.data.RT.data;
+    
+    const favUser = getFavsCookie(req, res);
+    movie.data.fav = favUser.find(f => f.movie_id == movie.data.id_movie);
+    
     if (opSC || opRT) res.render('show-movie', {
         ok: true,
         movie: movie.data,

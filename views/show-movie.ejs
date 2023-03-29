@@ -1,10 +1,15 @@
-<%- include('templates/headerSM',{opinions,movie}) %>
+<%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película'}) %>
     <section>
         <h1> <%- movie.title %> </h1>
         <form action="" method="">
             <input type="submit" value="Agregar a Favoritos">
         </form>
         <img src="<%- movie.image %>" alt="" height="200">
+        <% if (movie.fav) { %>
+            <button class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
+        <% } else { %>
+            <button  class="btnFav"><i class="fa-solid fa-star fa-2xl"></i></button>
+        <% } %>
         <p>Año: <%- movie.year %> </p>
         <p>Duración: <%- movie.runtimeStr %> </p>
         <p>Géneros: <%- movie.genres %> </p>

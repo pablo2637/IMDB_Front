@@ -8,56 +8,66 @@ const pool = new Pool({
     password: process.env.ELEPHANT_PASS,
 });
 
-const isAdmin = async ({ oidc }, res) => {
+const {
+    clearCookies,
+    getRolCookie,
+    setIdCookie,
+    setRolCookie } = require('./cookies')
+
+const isAdmin = async (req, res) => {
+    const rolCookie = getRolCookie(req, res);
+    if (rolCookie) return rolCookie;
+
     let client, data;
     try {
         client = await pool.connect();
-        data = await client.query(queriesAuth.isAdmin, [oidc.user.email]);
+        data = await client.query(queriesAuth.isAdmin, [req.oidc.user.email]);
     } catch (e) {
         throw e
     } finally {
         client.release();
     }
 
-    console.log('isAdmin', data.rows[0].rol)
+    setRolCookie(req, res, data.rows[0].rol)
     return data.rows[0].rol;
 }
 
 const registerUser = async (req, res, next) => {
-    console.log('registeruser', req.oidc.user)
-
-    let client, data, user;
+    let client, data, user, correo, id;
     try {
-        console.log('cominza')
+        clearCookies(req, res);
+
         client = await pool.connect();
         data = await client.query(queriesAuth.getUser, [req.oidc.user.email]);
         const fecha = new Date();
 
         if (data.rows == 0) {
-            console.log('usuario nuevo')
             user = {
                 name: req.oidc.user.nickname,
                 email: req.oidc.user.email,
                 auth0_id: req.oidc.user.sub,
                 rol: 'user'
             }
-            console.log('user', user)
+
             await client.query(queriesAuth.insertUser, [user.name, user.email, user.auth0_id]);
             await client.query(queriesAuth.insertRol, [user.rol, user.email]);
             await client.query(queriesAuth.insertLog, [fecha.toLocaleString(), 'register', user.email]);
+            correo = user.email;
         }
         else {
-            console.log('usuario registrado')
             user = data.rows[0];
             await client.query(queriesAuth.insertLog, [fecha.toLocaleString(), 'login', req.oidc.user.email]);
+            correo = req.oidc.user.email;
         }
-        console.log('paso')
+
+        id = await client.query(queriesAuth.getUserID, [correo])
     } catch (e) {
         throw e
     } finally {
-        client.release();    }
+        client.release();
+    }
 
-    console.log('register', user)
+    setIdCookie(req, res, id.rows[0].user_id);            
     next();
 }
 
