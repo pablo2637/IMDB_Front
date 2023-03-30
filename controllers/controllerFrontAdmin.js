@@ -1,4 +1,3 @@
-const { body } = require('express-validator');
 const { fetchData } = require('../helpers/fetchData');
 
 const urlBase = 'http://localhost:3005/images';
@@ -9,48 +8,52 @@ const getMovies = async (req, res) => {
   const tipo = 'getMoviesInt';
 
   const { data } = await fetchData(tipo, req);
-  const { movies } = data;
-
 
   res.render('../views/admin/dashboard-admin.ejs', {
     movies: data.movies
-  })
+  });
 
 }; //!FUNC-GETMOVIES
 
 
 const mostrarFormularioNueva = async (req, res) => {
-  res.render("../views/admin/vistaCrearPelicula")
 
+  res.render("../views/admin/vistaCrearPelicula");
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
 
 
 const crearMovieNueva = async (req, res) => {
-  //const id = req.params.id;
+
+  // variables
   const tipo = 'postMovieInt';
 
-  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : console.log('Error: no se ha subido ninguna foto.'); // TEMPORAL: validación de image  
+  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : console.log('Error: no se ha subido ninguna foto.'); // validación –temporal– para inputs file (foto) / hidden (url)
 
-  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
-  req.body.opinions = form
+  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
+  req.body.opinions = form;
 
-
+  // fetch
   try {
 
     const data = await fetchData(tipo, req);
-
-    console.log(data.opinions, "este es el de opinions")
+    
     if (data.ok) {
+      
+      res.status(201).redirect('/dashboard-admin');
 
-      res.redirect('/dashboard-admin');
     } else {
-      res.status(400).send({ error: 'Error al crear la película.' });
-    }
+
+      res.status(400).send({ error: 'Error: no se ha podido crear la película al crear la película.' });
+
+    };
+
   } catch (error) {
+
     console.log(error);
-    res.status(500).send({ error: 'Error al crear la película.' });
-  }
+    res.status(500).send({ error: 'Error: contacte con el administrador.' });
+
+  };
 
 }; //!FUNC-CREARMOVIENUEVA
 
