@@ -197,7 +197,6 @@ const eliminarMovie = async (req, res) => {
   // variables
   const tipo = 'deleteMovieInt';
 
-
   // fetch
   try {
 
@@ -214,13 +213,14 @@ const eliminarMovie = async (req, res) => {
 
     } else {
 
-      const {image} = response;
-      deletePic = image.split('/');
+      const {image, _id} = response;
+
+      let deletePic = image.split('/');
       deletePic = deletePic[deletePic.length-1];   
 
-      await fs.unlink(`${urlStatic}/${deletePic}`);
+      await fs.unlink(`${urlStatic}/${deletePic}`); // eliminar foto de la carpeta images
 
-      //* buscar en favorites (SQL) movie_id y eliminar todas las que coincidan
+      await fetchData('deleteAllFavorites', _id); // eliminar película de favoritas de usuarios (SQL)
 
       return res.status(200).redirect('/dashboard-admin');
 
