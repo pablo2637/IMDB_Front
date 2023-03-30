@@ -156,34 +156,33 @@ const editarMovie = async (req, res) => {
 const eliminarMovie = async (req, res) => {
 
   const tipo = 'deleteMovieInt';
-  console.log("Holaaa")
-
-  //const {data} = await fetchData(tipo, req);
-
-  const movies = await fetchData(tipo, req);
-
-  //const {movies} = data;
 
   try {
 
-    console.log(movies)
+    const movies = await fetchData(tipo, req);
+    
     if (!movies) {
-      return res.status(404).json({
+
+      return res.status(400).json({
         ok: false,
-        msg: 'Película no encontrada',
+        msg: 'ERROR: no se ha podido eliminar la película.',
       });
-    }
 
-    res.redirect('/dashboard-admin');
+    } else {
+
+      return res.status(200).redirect('/dashboard-admin');
+
+    };
+    
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      ok: false,
-      msg: 'Error al eliminar la película',
-    });
-  }
 
-  //funcion eliminar 
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.'
+    });
+
+  };
 
 }; //!FUNC-ELIMINARMOVIE
 
