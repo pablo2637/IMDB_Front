@@ -1,14 +1,25 @@
-<%- include('templates/header') %>
+<link rel="stylesheet" href="../../css/AdminPublic.css">
 
-<section class="navegacion">
-        
-  <h1>Formulario</h1>
+<!-- <section class="navegacion"> -->
 
-  <!-- va dentro de un menu hamburguesa -->
-  <a class="atras" href="/dashboard-admin">Atras</a>
-  <a class="logout" href="/customLogout">Log out</a>
+  <header class="main-header">
+       
+    <h1>Crear Pelicula</h1>
 
-  </section>
+    <nav id="nav" class="main-nav">
+      <div class="nav-links">
+        <a class="link-item" href="/dashboard-admin">Atras</a>
+        <a class="link-item" href="/customLogout">Log out</a>
+      </div>
+    </nav>
+
+    <button id="button-menu" class="button-menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>      
+
 
 <section id="formulario">
 
@@ -56,6 +67,9 @@
 
     <input type="submit" value="Crear película">
   </form>
+
+  <script src="js/menu.js"></script>
+
 </section>
 
 <%- include('templates/footer') %>
