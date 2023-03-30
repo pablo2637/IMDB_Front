@@ -13,24 +13,30 @@ const getMovies = async (req, res) => {
 
     if(data.ok){
 
-      res.status(200).render('../views/admin/dashboard-admin.ejs', {
+      return res.status(200).render('../views/admin/dashboard-admin.ejs', {
+        ok: true,
         movies: data.movies
       });    
 
     } else {
 
-      res.status(400).send({ error: 'No se han podido cargar las películas.' });
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se han podido cargar las películas.'
+      });
 
-    }
+    };
     
   } catch (error) {
-    
+
     console.log(error);
-    res.status(500).send({ error: 'Contacte con el administrador.' });
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
 
-  }
-
-
+  };
 
 }; //!FUNC-GETMOVIES
 
@@ -39,13 +45,17 @@ const mostrarFormularioNueva = async (req, res) => {
 
   try {
 
-    res.render("../views/admin/vistaCrearPelicula");
+    return res.status(200).render("../views/admin/vistaCrearPelicula");
     
   } catch (error) {
 
     console.log(error);
-    res.status(500).send({ error: 'Contacte con el administrador.' });
-    
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
   };
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
@@ -68,18 +78,25 @@ const crearMovieNueva = async (req, res) => {
     
     if (data.ok) {
       
-      res.status(201).redirect('/dashboard-admin');
+      return res.status(201).redirect('/dashboard-admin');
 
     } else {
 
-      res.status(400).send({ error: 'Error: no se ha podido crear la película al crear la película.' });
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido crear la película.'
+      });
 
     };
 
   } catch (error) {
 
     console.log(error);
-    res.status(500).send({ error: 'Error: contacte con el administrador.' });
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
 
   };
 
@@ -96,24 +113,29 @@ const mostrarFormularioEditar = async (req, res) => {
 
     if(data.ok){
 
-      res.status(200).render('../views/admin/vistaEditarPelicula.ejs', {
+      return res.status(200).render('../views/admin/vistaEditarPelicula.ejs', {
         movies: data.response
       });  
 
     } else {
 
-      res.status(400).send({ error: 'No se ha podido cargar el formulario para editar la película.' });
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido cargar el formulario para editar la película.'
+      });
 
     };
-
 
   } catch (error) {
 
     console.log(error);
-    res.status(500).send({ error: 'Contacte con el administrador.' });
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
 
   };
-
 
 }; //!FUNC-MOSTRARFORMULARIOEDITAR
 
@@ -135,18 +157,25 @@ const editarMovie = async (req, res) => {
 
     if(data.ok){
 
-      res.status(200).redirect('/dashboard-admin');
+      return res.status(200).redirect('/dashboard-admin');
 
     } else {
 
-      res.status(400).send({ error: 'No se ha podido editar la película.' });
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido editar la película.'
+      });
 
     };
 
   } catch (error) {
 
     console.log(error);
-    res.status(500).send({ error: 'Contacte con el administrador.' });
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
 
   };
 
@@ -179,7 +208,8 @@ const eliminarMovie = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       ok: false,
-      msg: 'ERROR: contacte con el administrador.'
+      msg: 'ERROR: contacte con el administrador.',
+      error
     });
 
   };
