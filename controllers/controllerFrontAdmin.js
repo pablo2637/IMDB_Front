@@ -1,140 +1,239 @@
-const { body } = require('express-validator');
 const { fetchData } = require('../helpers/fetchData');
+const fs = require('fs').promises;
 
 const urlBase = 'http://localhost:3005/images';
+const urlStatic = './public/images';
 
 
 const getMovies = async (req, res) => {
 
   const tipo = 'getMoviesInt';
 
-  const { data } = await fetchData(tipo, req);
-  const { movies } = data;
+  try {
 
+    const { data } = await fetchData(tipo, req);
 
-  res.render('../views/admin/dashboard-admin.ejs', {
-    movies: data.movies
-  })
+    if(data.ok){
+
+      return res.status(200).render('../views/admin/dashboard-admin.ejs', {
+        ok: true,
+        movies: data.movies
+      });    
+
+    } else {
+
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se han podido cargar las películas.'
+      });
+
+    };
+    
+  } catch (error) {
+
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-GETMOVIES
 
 
 const mostrarFormularioNueva = async (req, res) => {
-  res.render("../views/admin/vistaCrearPelicula")
 
+  try {
+
+    return res.status(200).render("../views/admin/vistaCrearPelicula");
+    
+  } catch (error) {
+
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
 
 
 const crearMovieNueva = async (req, res) => {
-  //const id = req.params.id;
+
+  // variables
   const tipo = 'postMovieInt';
-  
-  req.body.image = `${urlBase}/${req.file.filename}`;
 
-  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
-  req.body.opinions = form
+  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : console.log('Error: no se ha subido ninguna foto.'); // validación –temporal– para inputs file (foto) / hidden (url)
 
+  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
+  req.body.opinions = form;
 
+  // fetch
   try {
 
     const data = await fetchData(tipo, req);
-
-    console.log(data.opinions, "este es el de opinions")
+    
     if (data.ok) {
+      
+      return res.status(201).redirect('/dashboard-admin');
 
-      res.redirect('/dashboard-admin');
     } else {
-      res.status(400).send({ error: 'Error al crear la película.' });
-    }
+
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido crear la película.'
+      });
+
+    };
+
   } catch (error) {
+
     console.log(error);
-    res.status(500).send({ error: 'Error al crear la película.' });
-  }
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-CREARMOVIENUEVA
 
 
 const mostrarFormularioEditar = async (req, res) => {
 
-  const id = req.params.id;
   const tipo = 'putMovieInt';
 
   try {
+    
     const { data } = await fetchData(tipo, req);
 
-    console.log('CONTROLLER:', data)
+    if(data.ok){
 
-    res.render('../views/admin/vistaEditarPelicula.ejs', {
-      movies: data.response
+      return res.status(200).render('../views/admin/vistaEditarPelicula.ejs', {
+        movies: data.response
+      });  
 
-    });
+    } else {
+
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido cargar el formulario para editar la película.'
+      });
+
+    };
+
   } catch (error) {
-    console.log(error);
-  }
 
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-MOSTRARFORMULARIOEDITAR
 
 
 const editarMovie = async (req, res) => {
 
+  // variables
   const tipo = 'putMovieInt';
 
-  req.body.image = `${urlBase}/${req.file.filename}`;
+  let oldPic = req.body.image.split('/'); // separar la ruta tomando como división el '/' que las une
+  oldPic = oldPic[oldPic.length-1]; // el nombre del archivo 
 
-  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
-  req.body.opinions = form
+  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
+  req.body.opinions = form;
 
+  // fetch
   try {
+
+    if(req.file != undefined){
+      await fs.unlink(`${urlStatic}/${oldPic}`);
+      req.body.image = `${urlBase}/${req.file.filename}`;
+    } else {
+      req.body.image;
+    };
+
     const { data } = await fetchData(tipo, req);
 
-    console.log(data)
+    if(data.ok){
 
+      return res.status(200).redirect('/dashboard-admin');
 
+    } else {
 
+      return res.status(400).json({
+        ok: false,
+        msg: 'ERROR: no se ha podido editar la película.'
+      });
 
-    res.redirect('/dashboard-admin');
+    };
 
   } catch (error) {
+
     console.log(error);
-  }
-  //funcion
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-EDITARMOVIE
 
 
 const eliminarMovie = async (req, res) => {
 
+  // variables
   const tipo = 'deleteMovieInt';
-  console.log("Holaaa")
 
-  //const {data} = await fetchData(tipo, req);
 
-  const movies = await fetchData(tipo, req);
-
-  //const {movies} = data;
-
+  // fetch
   try {
 
-    console.log(movies)
-    if (!movies) {
-      return res.status(404).json({
+    const {ok, data} = await fetchData(tipo, req);
+
+    const {response} = data;
+    
+    if (!ok) {
+
+      return res.status(400).json({
         ok: false,
-        msg: 'Película no encontrada',
+        msg: 'ERROR: no se ha podido eliminar la película.',
       });
-    }
 
-    res.redirect('/dashboard-admin');
+    } else {
+
+      const {image} = response;
+      deletePic = image.split('/');
+      deletePic = deletePic[deletePic.length-1];   
+
+      await fs.unlink(`${urlStatic}/${deletePic}`);
+
+      return res.status(200).redirect('/dashboard-admin');
+
+    };
+    
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      ok: false,
-      msg: 'Error al eliminar la película',
-    });
-  }
 
-  //funcion eliminar 
+    console.log(error);
+    return res.status(500).json({
+      ok: false,
+      msg: 'ERROR: contacte con el administrador.',
+      error
+    });
+
+  };
 
 }; //!FUNC-ELIMINARMOVIE
 

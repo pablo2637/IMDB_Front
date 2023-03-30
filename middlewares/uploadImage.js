@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
   });
 
   
-const upload = multer({ storage: storage }); // almacena la configuración de la función 'storage'
+const upload = multer({ storage: storage }).single('photo'); // almacenamos la configuración de la función 'storage' / el atributo name del input 'file' se tiene que llamar igual (image)
 
 
-exports.upload = upload.single('photo'); // el atributo name del input 'file' se tiene que llamar igual (image)
+module.exports = {upload};
