@@ -7,8 +7,10 @@
    
     <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
-        <input type="text" id="titulo" name="title" value="<%= movies.title %>">
+        <input type="text" id="title" name="title" value="<%= movies.title %>">
 
+        <label for="photo">Imagen:</label>
+        <input type="file" id="photo" name="photo">
 
         <input type="hidden" id="image" name="image" value="<%= movies.image %>">
 
@@ -22,16 +24,18 @@
         <input type="text" id="stars" name="stars" placeholder="Actores" value="<%= movies.stars %>">
 
         <label for="genres">Género:</label>
-        <input type="text" id="genre" name="genre" value="<%= movies.genres %>">
+        <input type="text" id="genres" name="genres" value="<%= movies.genres %>">
 
         <label for="runtimeStr">Duración:</label>
         <input type="text" id="runtimeStr" name="runtimeStr" value="<%= movies.runtimeStr %>">
 
         <label for="plot">Sinopsis:</label>
-        <textarea name="plot" id="plot" cols="30" rows="10"
-            placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
+        <textarea name="plot" id="plot" cols="30" rows="10" placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
 
-        <label for="opinion">Opinion:</label>
+        <label for="imdbRating">Calificación:</label>
+        <input type="text" id="imdbRating" name="imdbRating" value="<%= movies.imdbRating %>">    
+
+        <label for="opinion">Opinión:</label>
         <input type="text" id="opinion" name="opinion" value="<%= movies.opinions.opinion%>">
 
         <label for="date">Fecha:</label>
@@ -40,9 +44,7 @@
         <label for="escritor">Escritor:</label>
         <input type="text" id="escritor" name="escritor" value="<%= movies.opinions.escritor%>">
 
-        <label for="url">:</label>
         <input type="hidden" id="url" name="url" value="">
-
 
         <input type="submit" value="Editar">
     </form>
