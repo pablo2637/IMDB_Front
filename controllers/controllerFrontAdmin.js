@@ -7,18 +7,46 @@ const getMovies = async (req, res) => {
 
   const tipo = 'getMoviesInt';
 
-  const { data } = await fetchData(tipo, req);
+  try {
 
-  res.render('../views/admin/dashboard-admin.ejs', {
-    movies: data.movies
-  });
+    const { data } = await fetchData(tipo, req);
+
+    if(data.ok){
+
+      res.status(200).render('../views/admin/dashboard-admin.ejs', {
+        movies: data.movies
+      });    
+
+    } else {
+
+      res.status(400).send({ error: 'No se han podido cargar las películas.' });
+
+    }
+    
+  } catch (error) {
+    
+    console.log(error);
+    res.status(500).send({ error: 'Contacte con el administrador.' });
+
+  }
+
+
 
 }; //!FUNC-GETMOVIES
 
 
 const mostrarFormularioNueva = async (req, res) => {
 
-  res.render("../views/admin/vistaCrearPelicula");
+  try {
+
+    res.render("../views/admin/vistaCrearPelicula");
+    
+  } catch (error) {
+
+    console.log(error);
+    res.status(500).send({ error: 'Contacte con el administrador.' });
+    
+  };
 
 }; //!FUNC-MOSTRARFORMULARIONUEVA
 
@@ -92,27 +120,35 @@ const mostrarFormularioEditar = async (req, res) => {
 
 const editarMovie = async (req, res) => {
 
+  // variables
   const tipo = 'putMovieInt';
 
-  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : req.body.image; // TEMPORAL: validación de image //! en el else tendría que subir la ruta anterior
+  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : req.body.image; // validación –temporal– para inputs file (foto) / hidden (url)
 
-  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
-  req.body.opinions = form
+  const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
+  req.body.opinions = form;
 
+  // fetch
   try {
+
     const { data } = await fetchData(tipo, req);
 
-    console.log(data)
+    if(data.ok){
 
+      res.status(200).redirect('/dashboard-admin');
 
+    } else {
 
+      res.status(400).send({ error: 'No se ha podido editar la película.' });
 
-    res.redirect('/dashboard-admin');
+    };
 
   } catch (error) {
+
     console.log(error);
-  }
-  //funcion
+    res.status(500).send({ error: 'Contacte con el administrador.' });
+
+  };
 
 }; //!FUNC-EDITARMOVIE
 
