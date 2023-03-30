@@ -1,9 +1,11 @@
 <%- include('templates/header',{urlTitle, user}) %>
 
-    <h1><%- user.name %></h1>
-    <h2><%- user.email %></h2>
+    <p class="search"><%- user.name %></p>
+    <div class="search">
+        <a class="search" href="/dashboard-usuario/userSearch/search">Buscar Películas</a>
+    </div>
+    <div class="search">
+        <a class="search" href="/dashboard-usuario/favoritas/<%- user.id %>">Ir a Favoritos</a>
+    </div>
 
-    <a href="/dashboard-usuario/userSearch/search">Buscar Películas</a>
-    <a href="/dashboard-usuario/favoritas/<%- user.id %>">Ir a Favoritos</a>
-
-<%- include('templates/footer') %>
+    <%- include('templates/footer') %>

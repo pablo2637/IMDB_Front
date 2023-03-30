@@ -23,6 +23,7 @@ const search = async (req, res) => {
 const searchMoviesC = async (req, res) => {
     let movies, opinions, response;
     let api = 'mongo'
+    const search = req.body.title;
 
     response = await fetchData('getMovieTitleInt', req);
     movies = response.data.response;
@@ -46,6 +47,7 @@ const searchMoviesC = async (req, res) => {
     movies = movies.concat(response.data);
 
     if (movies) {
+        movies.sort();
         const favUser = await getFavsCookie(req, res);
         movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
@@ -57,6 +59,7 @@ const searchMoviesC = async (req, res) => {
             movies,
             opinions,
             urlTitle: 'Buscador de Películas',
+            search,
             user
         })
     }
@@ -71,7 +74,7 @@ const getMovieC = async (req, res) => {
 
     if (tipo == 'getMovieInt') opinions = {
         ok: true,
-        RT: response.data.response.opinions,
+        RT: [response.data.response.opinions],
         SC: ''
     }
 
@@ -81,7 +84,6 @@ const getMovieC = async (req, res) => {
 
         const favUser = await getFavsCookie(req, res);
         movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
-
 
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
@@ -173,18 +175,14 @@ const deleteFavorite = async (req, res) => {
     };
 
     try {
-
         await fetchData(tipo, datos);
-
     } catch (error) {
-
         console.log(error);
-
     };
 
-    const user = req.oidc.user;
-    user.id = await getIdCookie(req, res);    
-    res.redirect(`/dashboard-usuario/favoritas/${getIdCookie(req, res)}`);
+    const id = await getIdCookie(req, res);
+    res.redirect(`/dashboard-usuario/favoritas/${id}`);
+    
 
 }; //!FUNC-DELETEFAVORITE
 
