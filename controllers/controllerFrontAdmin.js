@@ -220,6 +220,8 @@ const eliminarMovie = async (req, res) => {
 
       await fs.unlink(`${urlStatic}/${deletePic}`);
 
+      //* buscar en favorites (SQL) movie_id y eliminar todas las que coincidan
+
       return res.status(200).redirect('/dashboard-admin');
 
     };
