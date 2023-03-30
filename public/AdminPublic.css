@@ -1,0 +1,220 @@
+*{
+    background-color: rgb(194, 198, 236);
+}
+
+
+
+
+/*Aqui va el menu hamburguesa*/
+
+.main-header {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(59, 67, 133);
+  padding: 30px;
+}
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  margin-left: -100%;
+  transition: all 0.2s linear;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.main-nav.show {
+  margin-left: 0;
+}
+
+.nav-links {
+  background-color: rgb(250, 250, 250);
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 30%;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.link-item {
+  margin-top: 2rem;
+  color: #f9f9f9;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  padding: 10px;
+}
+
+.button-menu {
+  z-index: 200;
+  width: 40px;
+  height: 40px;
+  border: none;
+  display: flex;
+  background: none;
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.button-menu span {
+  width: 37px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #fafafa;
+  border-radius: 3px;
+  transform-origin: 4px 0px;
+  transition: all 0.2s linear;
+}
+
+/* 
+  con los span dibujamos un icono de cerrar 
+  para mostrar cuándo la navegación este abierta 
+*/
+
+.button-menu.close span {
+  opacity: 1;
+  transform: rotate(45deg) translate(0px, 0px);
+  background: #ffffff;
+}
+
+.button-menu.close span:nth-child(2) {
+  transform: rotate(-45deg) translate(-8px, 5px);
+}
+
+.button-menu.close span:nth-child(3) {
+  display: none;
+}
+ 
+
+/*Aqui acaba el menu hamburguesa*/
+
+
+
+/*Aqui empieza ya la parte de abajo del menu */
+#BotonEditar {
+    float: right;
+    padding: 20px;
+    margin-top: -70px;
+    margin-right: 100px;
+ 
+}
+
+#BotonEliminar {
+    float: right;
+    padding: 20px;
+    margin-top: -70px;
+ 
+}
+
+.card {
+    background-color: rgb(59, 67, 133);
+    margin-top: 10px;
+    padding: 3px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    color: white;
+
+}
+
+.espacios{
+    margin-top: 70px;
+}
+
+.navegacion{
+    padding: 20px;
+    background-color: rgb(59, 67, 133);
+}
+
+h1, a{
+    background-color: rgb(59, 67, 133);
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+#formulario {
+    margin-top: 20px;
+}
+  
+  /* Estilos para la sección de navegación */
+  .navegacion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(59, 67, 133);
+    color: white;
+  }
+  
+  .navegacion h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .navegacion a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 0.5rem;
+  }
+  
+  /* Estilos para el formulario */
+  #formulario {
+    margin: 2rem auto;
+    max-width: 600px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+  }
+  
+  #formulario label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  #formulario input[type="text"],
+  #formulario input[type="url"],
+  #formulario input[type="number"],
+  #formulario input[type="time"],
+  #formulario textarea {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  #formulario input[type="submit"] {
+    background-color: rgb(59, 67, 133);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  #formulario input[type="submit"]:hover {
+    background-color: rgb(33, 37, 74);
+  }
+  
+  #formulario input[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(59, 67, 133);
+  }
+  
+
+  

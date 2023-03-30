@@ -73,12 +73,16 @@ const crearMovieNueva = async (req, res) => {
   const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
   req.body.opinions = form;
 
+
   // fetch
+
+
   try {
 
     const data = await fetchData(tipo, req);
-    
+    console.log(data, "el primero")
     if (data.ok) {
+      console.log(data, "el segundo ")
       
       return res.status(201).redirect('/dashboard-admin');
 
