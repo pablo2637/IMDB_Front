@@ -89,6 +89,10 @@ const fetchData = async (tipo, data) => {
             url = `${urlBaseBack}/${urlAPIFavorites}/${params}?movie_id=${query}`;
             options = { method: 'DELETE' };
             break;
+        case 'deleteAllFavorites':
+            url = `${urlBaseBack}/${urlAPIFavorites}/delete-all/${data}`;
+            options = { method: 'DELETE' };
+            break;
     };
 
     //Fetch
