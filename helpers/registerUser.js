@@ -93,6 +93,7 @@ const registerUser = async (req, res, next) => {
         client.release();
     }
     await updateFavsID(req, res, id.rows[0].user_id);
+    req.id = id.rows[0].user_id;
     next();
 }
 

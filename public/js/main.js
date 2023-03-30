@@ -2,19 +2,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //* VARIABLES *//
     const body = document.querySelector('body');
+    const divMenu = document.querySelector('#divMenu');
+    const txtSearch = document.querySelector('#title');
+
+    const urlBaseBack = 'http://localhost:3000';
 
 
     //* EVENTOS *//
     body.addEventListener('click', ({ target }) => {
 
         if (target.matches('i')) {
-            if (target.parentNode.classList.contains('btnFav')) { //! aquí iría el atributo "id" del botón, que en el .ejs sería algo similar a: <%= item.id_movie %>
+            if (target.id == 'btnMenu') {
+                divMenu.classList.toggle('mostrarNav');
+            } else if (target.id == 'lupa') {
+                txtSearch.classList.toggle('ocultar');
+            } else if (target.parentNode.classList.contains('btnFav')) {
                 const user_id = target.parentNode.dataset.user_id;
                 const movie_id = target.parentNode.dataset.movie_id;
                 const api_movie = movie_id.includes('tt') ? 'imdb' : 'mongodb';
 
                 const data = { user_id, movie_id, api_movie };
-                
                 if (target.parentNode.classList.contains('favorita')) {
                     fetchData('deleteFavorite', data);
                 } else {
@@ -36,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (tipo) {
 
             case 'addFavorite':
-                url = 'http://localhost:3000/api/favorites';
+                url = `${urlBaseBack}/api/favorites`;
                 options = {
                     method: 'POST',
                     body: bodyJSON,
@@ -45,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
 
             case 'deleteFavorite':
-                url = `http://localhost:3000/api/favorites/${data.user_id}?movie_id=${data.movie_id}`;
+                url = `${urlBaseBack}/api/favorites/${data.user_id}?movie_id=${data.movie_id}`;
                 options = { method: 'DELETE' };
                 break;
 
@@ -79,5 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }; //TRY-CATCH
 
     }; //!FUNC-FETCHDATA
+
+    const init = () => {
+        // divMenu.classList.add('ocultar');
+    }
+
+    init();
 
 }); //!LOAD

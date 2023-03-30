@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../css/main.css">    
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
     <script src="https://kit.fontawesome.com/d28a6644c9.js" crossorigin="anonymous"></script>
-    <title><%- urlTitle %></title>    
+    <title><%- urlTitle %></title>
 </head>
+
 <body>
-    <header>        
-        <form action="/dashboard-usuario/userSearch/searchMovies" method="post">
-            <label for="title"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #9194af;"></i></label>
-            <input type="text" name="title" id="title">
-        </form>
-        
-        <nav>
-            <ul>
-                <li><a href="../userSearch/search">Buscar películas</a></li>
-                <li><a href="../favoritas/<%- user.id %>">Ir a favoritas</a></li>
-                <li><a href="../../customLogout/">Logout</a></li>
-            </ul>
-        </nav>
+    <header>
+        <a id="flecha" href="javascript:history.back()"><i class="fa-solid fa-left-long fa-2xl"
+                style="color: white;"></i></a>
+
+        <div id="divNav">
+            <div>
+                <form class="searchMovies" action="/dashboard-usuario/userSearch/searchMovies" method="post">
+                    <label for="title"><i  id="lupa" class="fa-solid fa-magnifying-glass fa-xl"
+                            style="color: #9194af;"></i></label>
+                    <input  class="" type="text" name="title" id="title">
+                </form>
+            </div>
+            <div>
+                <nav class="searchMovies">
+                    <button><i id='btnMenu' class="fa-solid fa-bars fa-2xl"></i></button>
+                    <div id="divMenu">
+                        <ul>
+                            <li><a href="../userSearch/search">Buscar películas</a></li>
+                            <li><a href="../favoritas/<%- user.id %>">Ir a favoritas</a></li>
+                            <li><a href="../../customLogout/">Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
     </header>
-<main>
-    <a href="javascript:history.back()"><i class="fa-solid fa-left-long fa-shake fa-2xl" style="color: #3b4385;"></i></a>
+    <main>

@@ -1,5 +1,7 @@
 <%- include('templates/headerFav',{urlTitle: 'Películas Favoritas',user}) %>
 
+<p class="search"><%- user.name %></p>
+
     <% if (arrayMovies.length > 0) { %>
 
         <% arrayMovies.forEach(item => { %>

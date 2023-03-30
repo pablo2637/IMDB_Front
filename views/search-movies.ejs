@@ -1,43 +1,50 @@
-    <%- include('templates/header', {urlTitle}) %> 
-    <!-- : 'Buscar Películas' -->
+    <%- include('templates/header', {urlTitle}) %>     
 
-    <h1>Buscador</h1>
+    <h1 class="dashSearch">Buscador</h1>    
     <% if (ok) { %>
-        <table>
-            <thead>
-                <th></th>
-                <th></th>
-                <th>Título</th>
-                <th>Año</th>
-                <th>Director</th>
-                <th>Elenco</th>
-                <th>Géneros</th>
-                <th>Duración</th>
-                <th></th>                
-            </thead>
-            <tbody>
-                <% movies.forEach(movie=> { %>
-                    <tr>
-                        <% if (movie.fav) { %>
-                            <th><button id="btnFav<%- movie.id_movie %>" class="btnFav favorita" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>
-                        <% } else { %>
-                            <th><button id="btnFav<%- movie.id_movie %>" class="btnFav" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>      
-                        <% } %>
-                        
-                        <td><img src="<%- movie.image %>" alt="" height="50"></td>
-                        <td><%- movie.title %></td>
-                        <td><%- movie.year %></td>
-                        <td><%- movie.directors %></td>
-                        <td><%- movie.stars %></td>
-                        <td><%- movie.genres %></td>
-                        <td><%- movie.runtimeStr %></td>
-                        <!-- <td><form action="/userSearch/showMovie/<%- movie.id_movie %>" method="post">
-                            <input type="submit" value="Ver">
-                        </form></td> -->
-                        <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><i class="fa-solid fa-circle-info fa-xl" style="color: #9194af;"></i></a></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+        <p id="searchText">Has buscado: "<span><%- search  %></span>"</p>
+        <div id="tableSearch">
+            <table>
+                <thead>
+                    <th></th>
+                    <th></th>
+                    <th>Título</th>
+                    <th>Año</th>
+                    <th>Director</th>
+                    <th>Elenco</th>
+                    <th>Géneros</th>
+                    <th>Duración</th>
+                    <th></th>                
+                </thead>
+                <tbody>
+                    <% movies.forEach(movie=> { %>
+                        <tr>
+                            <% if (movie.fav) { %>
+                                <td><button id="btnFav<%- movie.id_movie %>" class="btnFav favorita" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></td>
+                            <% } else { %>
+                                <td><button id="btnFav<%- movie.id_movie %>" class="btnFav" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></td>      
+                            <% } %>
+                            
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><img class="imgTable" src="<%- movie.image %>" alt=""></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.title %></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.year %></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.directors %></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.stars %></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.genres %></a></td>
+                            <td><a href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><%- movie.runtimeStr %></a></td>
+                            <td><a title="Ver" href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><i class="fa-solid fa-circle-info fa-xl" style="color: #054083;"></i></a></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="dashSearch">
+            <form class="dashSearch" action="/dashboard-usuario/userSearch/searchMovies" method="post">
+                <label for="titleDS"><i class="fa-solid fa-magnifying-glass fa-xl"
+                        style="color: #9194af;"></i></label>
+                <input type="text" name="title" id="titleDS">
+            </form>
+        </div>
     <% } %>
 <%- include('templates/footer') %>
