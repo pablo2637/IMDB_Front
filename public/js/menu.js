@@ -1,31 +1,9 @@
-//funcion para el menu hamburguesa 
+//Menu hamburguesa
 
-document.addEventListener('DOMContentLoaded', () => {
-//  seleccionamos los dos elementos que serán clickables
 
-const toggleButton = document.getElementById("button-menu");
-const navWrapper = document.getElementById("nav");
-
-/* 
-  cada ves que se haga click en el botón 
-  agrega y quita las clases necesarias 
-  para que el menú se muestre.
-*/
-toggleButton.addEventListener("click", () => {
-  toggleButton.classList.toggle("close");
-  navWrapper.classList.toggle("show");
+const buttonMenu = document.getElementById('button-menu');
+const mainNav = document.getElementById('nav');
+buttonMenu.addEventListener('click', () => {
+    mainNav.classList.toggle('show');
+    buttonMenu.classList.toggle('close');
 });
-
-/* 
-  Cuándo se haga click fuera del contenedor de enlaces 
-  el menú debe esconderse.
-*/
-
-navWrapper.addEventListener("click", e => {
-  if (e.target.id === "nav") {
-    navWrapper.classList.remove("show");
-    toggleButton.classList.remove("close");
-  }
-});
-
-})

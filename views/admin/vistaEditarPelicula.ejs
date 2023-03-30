@@ -1,7 +1,10 @@
 <%- include('templates/header') %>
+<a class="link-item" href="/dashboard-admin">Atras</a>
+
 
 <section id="formulario">
 
+   
     <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
         <input type="text" id="titulo" name="title" value="<%= movies.title %>">

@@ -1,8 +1,9 @@
 
-<%- include('templates/header') %>
+
+ <link rel="stylesheet" href="../../css/AdminPublic.css">
+
 
 <main>
-
 
     <header class="main-header">
        
@@ -13,7 +14,6 @@
             <a class="link-item" href="/dashboard-admin/nueva">Crear Pelicula</a>
             <a class="link-item" href="/customLogout">Log out</a>
           </div>
-
         </nav>
 
         <button id="button-menu" class="button-menu">
@@ -29,18 +29,24 @@
             <% movies.forEach(item => { %>
 
                 <div class="espacios" >                
-                <article class="card">
-                    <h2 class="card "><%= item.title %></h2>
-                    <img class="card" src="<%= item.image %>" alt="">
-                    <p class="card"><%= item.year %></p>
-                    <p class="card"><%= item.directors %></p>
-                    <p class="card"><%= item.genres %></p>
-                    <p class="card"><%= item.runtimeStr %></p>
-                    <a class="card" id="BotonEditar" href="/dashboard-admin/editar/<%= item._id %>" method="GET">Editar</a>
-                    <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
-                        <button type="submit">Eliminar</button>
-                          </form>
-                </article>
+                    <article class="card">
+                        <div class="card-image">
+                          <img src="<%= item.image %>" alt="">
+                        </div>
+                        <div class="card-content">
+                          <h2 class="card-title"><%= item.title %></h2>
+                          <p class="card-text"><%= item.year %></p>
+                          <p class="card-text"><%= item.directors %></p>
+                          <p class="card-text"><%= item.genres %></p>
+                          <p class="card-text"><%= item.runtimeStr %></p>
+                          <div class="card-buttons">
+                            <a href="/dashboard-admin/editar/<%= item._id %>" class="card-button">Editar</a>
+                            <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
+                              <button type="submit" id="BotonEliminar" class="card-button">Eliminar</button>
+                            </form>
+                          </div>
+                        </div>
+                      </article>
             </div>
             <% }) %>
         <% } else { %>
@@ -48,5 +54,8 @@
         <% } %>
     </section>
 
+
+    <script src="js/menu.js"></script>
+    </main>
 
 

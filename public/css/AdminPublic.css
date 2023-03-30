@@ -2,11 +2,7 @@
     background-color: rgb(194, 198, 236);
 }
 
-
-
-
-/*Aqui va el menu hamburguesa*/
-
+/*Aqui empieza el menu hamburguesa*/
 .main-header {
   height: 50px;
   display: flex;
@@ -99,36 +95,73 @@
 
 
 
-/*Aqui empieza ya la parte de abajo del menu */
-#BotonEditar {
-    float: right;
-    padding: 20px;
-    margin-top: -70px;
-    margin-right: 100px;
- 
-}
 
-#BotonEliminar {
-    float: right;
-    padding: 20px;
-    margin-top: -70px;
- 
-}
-
+/*Aqui van las cards*/
 .card {
-    background-color: rgb(59, 67, 133);
-    margin-top: 10px;
-    padding: 3px;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    border-radius: 20px;
-    color: white;
-
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(59, 67, 133);
+  color: #fff;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
 }
 
-.espacios{
-    margin-top: 70px;
+.card-image {
+  width: 30%;
+  margin-right: 1rem;
+  background-color: rgb(59, 67, 133);
 }
+
+.card-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  background-color: rgb(59, 67, 133);
+}
+
+.card-content {
+  width: 70%;
+  background-color: rgb(59, 67, 133);
+  background-color: rgb(59, 67, 133);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background-color: rgb(59, 67, 133);
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  background-color: rgb(59, 67, 133);
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  background-color: rgb(59, 67, 133);
+}
+
+.card-button {
+
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  
+}
+
+
+/*Aqui acaban las cards*/
+
 
 .navegacion{
     padding: 20px;
@@ -145,7 +178,7 @@ h1 {
 }
 
 #formulario {
-    margin-top: 20px;
+    margin-top: 50px;
 }
   
   /* Estilos para la sección de navegación */
@@ -192,7 +225,7 @@ h1 {
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: none;
-    width: 100%;
+    width: 95%;
     margin-bottom: 1rem;
     font-size: 1rem;
   }
@@ -214,6 +247,12 @@ h1 {
   #formulario input[type="submit"]:focus {
     outline: none;
     box-shadow: 0 0 0 2px white, 0 0 0 4px rgb(59, 67, 133);
+  }
+
+  #BotonEliminar {
+    margin:0px;
+    background-color:rgb(194, 198, 236) ;
+ 
   }
   
 
