@@ -1,9 +1,6 @@
 <%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película'}) %>
     <section>
-        <h1> <%- movie.title %> </h1>
-        <form action="" method="">
-            <input type="submit" value="Agregar a Favoritos">
-        </form>
+        <h1> <%- movie.title %> </h1>       
         <img src="<%- movie.image %>" alt="" height="200">
         <% if (movie.fav) { %>
             <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %> class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
