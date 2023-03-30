@@ -29,8 +29,8 @@ const mostrarFormularioNueva = async (req, res) => {
 const crearMovieNueva = async (req, res) => {
   //const id = req.params.id;
   const tipo = 'postMovieInt';
-  
-  req.body.image = `${urlBase}/${req.file.filename}`;
+
+  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : console.log('Error: no se ha subido ninguna foto.'); // TEMPORAL: validación de image  
 
   const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
   req.body.opinions = form
@@ -81,7 +81,7 @@ const editarMovie = async (req, res) => {
 
   const tipo = 'putMovieInt';
 
-  req.body.image = `${urlBase}/${req.file.filename}`;
+  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : req.body.image; // TEMPORAL: validación de image //! en el else tendría que subir la ruta anterior
 
   const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor }
   req.body.opinions = form
