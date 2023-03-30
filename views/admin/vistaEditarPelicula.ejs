@@ -4,7 +4,7 @@
 
     <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
-        <input type="text" id="titulo" name="title" value="<%= movies.title %>">
+        <input type="text" id="title" name="title" value="<%= movies.title %>">
 
         <label for="photo">Imagen:</label>
         <input type="file" id="photo" name="photo">
@@ -30,7 +30,7 @@
         <textarea name="plot" id="plot" cols="30" rows="10" placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
 
         <label for="imdbRating">Calificación:</label>
-        <input type="text" id="rating" name="rating" value="<%= movies.imdbRating %>">    
+        <input type="text" id="imdbRating" name="imdbRating" value="<%= movies.imdbRating %>">    
 
         <label for="opinion">Opinión:</label>
         <input type="text" id="opinion" name="opinion" value="<%= movies.opinions.opinion%>">
