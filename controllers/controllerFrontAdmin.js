@@ -1,6 +1,8 @@
 const { fetchData } = require('../helpers/fetchData');
+const fs = require('fs').promises;
 
 const urlBase = 'http://localhost:3005/images';
+const urlStatic = './public/images';
 
 
 const getMovies = async (req, res) => {
@@ -145,13 +147,21 @@ const editarMovie = async (req, res) => {
   // variables
   const tipo = 'putMovieInt';
 
-  req.file != undefined ? req.body.image = `${urlBase}/${req.file.filename}` : req.body.image; // validación –temporal– para inputs file (foto) / hidden (url)
+  let oldPic = req.body.image.split('/'); // separar la ruta tomando como división el '/' que las une
+  oldPic = oldPic[oldPic.length-1]; // el nombre del archivo 
 
   const form = { opinion: req.body.opinion, fecha: req.body.fecha, url: req.body.url, escritor: req.body.escritor };
   req.body.opinions = form;
 
   // fetch
   try {
+
+    if(req.file != undefined){
+      await fs.unlink(`${urlStatic}/${oldPic}`);
+      req.body.image = `${urlBase}/${req.file.filename}`;
+    } else {
+      req.body.image;
+    };
 
     const { data } = await fetchData(tipo, req);
 
