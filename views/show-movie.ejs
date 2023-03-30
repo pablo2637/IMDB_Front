@@ -1,55 +1,64 @@
-<%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película'}) %>
-    <section>
-        <h1> <%- movie.title %> </h1>       
-        <img src="<%- movie.image %>" alt="" height="200">
-        <% if (movie.fav) { %>
-            <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %> class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
-        <% } else { %>
-            <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %> class="btnFav"><i class="fa-solid fa-star fa-2xl"></i></button>
-        <% } %>
-        <p>Año: <%- movie.year %> </p>
-        <p>Duración: <%- movie.runtimeStr %> </p>
-        <p>Géneros: <%- movie.genres %> </p>
-        <p>Director: <%- movie.directors %> </p>
-        <p>Actores: <%- movie.stars %> </p>
-        <p>Rating: <%- movie.imDbRating %> </p>
-        <p>Sinopsis: <%- movie.plot %> </p>
+<%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película' }) %>
+    <section class="showMovie">
+        <h1 class="showMovie"> <%- movie.title %> </h1>
+
+        <div>
+            <img src="<%- movie.image %>" alt="" height="200">
+            <% if (movie.fav) { %>
+                <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>
+                    class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
+            <% } else { %>
+                <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>
+                    class="btnFav"><i class="fa-solid fa-star fa-2xl"></i></button>
+            <% } %>
+        </div>
+
+        <div>
+            <p>Año: <%- movie.year %> </p>
+            <p>Duración: <%- movie.runtimeStr %> </p>
+            <p>Géneros: <%- movie.genres %> </p>
+            <p>Director: <%- movie.directors %> </p>
+            <p>Actores: <%- movie.stars %> </p>
+            <p>Rating: <%- movie.imdbRating %> </p>
+            <p>Sinopsis: <%- movie.plot %> </p>
+        </div>
     </section>
+
     <section>
         <div>
             <h3>Opiniones:</h3>
-            <% if (opinions!='No') { %>
-                <% if (opinions!='' ) { %>
-
-                    <% if (opinions.RT.length==0) { %>
+            <% if (opinions!='' ) { %>
+                <!-- <span id='spnFO' class="ocultar" data-movie_id=<%- movie.id_movie %> data-movie_year=<%- movie.year %> data-movie_title=<%- spnSearch %>></span> -->
+                <div id="divOpinions">
+                    <!-- <% if (opinions.RT.length==0) { %>
                         <p>No hay opiniones en RottenTomatoes.</p>
-                    <% } else { %>
-                        <% opinions.RT.forEach(op=> { %>
-                            <p><%- op.opinion %></p>                        
-                            <a href="<%- op.url %>"  target="_blank"><%- op.escritor %></a>
-                            <p><%- op.fecha %></p>                        
-                        <% }) %>
-                    <% } %>
+                        <% } else { %> 
+                        <% opinions.RT.forEach(op=> { %> -->
+                    <p><%- op.opinion %></p>
+                    <a href="<%- op.url %>" target="_blank"><%- op.escritor %></a>
+                    <p><%- op.fecha %></p>
+                    <!-- <% }) %> -->
+                    <!-- <% } %> -->
+                </div>
 
-                    <% if (opinions.SC.length==0) { %>
-                        <p>No hay opiniones en SensaCine.</p>
+                <!-- <% if (opinions.SC.length==0) { %>                        
+                        <p>No hay opiniones en SensaCine.</p>                        
                     <% } else { %>
                         <% opinions.SC.forEach(op=> { %>
                             <p><%- op.opinion %></p>                        
                             <a href="<%- op.url %>" target="_blank"><%- op.escritor %></a>
-                            <p><%- op.fecha %></p>                        
+                            <p><%- op.fecha %></p>                                                
                         <% }) %>
-                    <% } %>
+                    <% } %>                 -->
 
                 <% } else { %>
-
-                    <!-- <p>Buscando opiniones...</p> -->
-                    <span class="loader"></span>
-                <% } %>
-            <% } else { %>
-                <p>No hay opiniones para esta película</p>
-            <% } %>
+                    <div id="divOpinions">
+                        <span class="loader"></span>
+                        <span id='spnFO' class="ocultar" data-movie_id=<%- movie.id_movie %> data-movie_year=<%-
+                                movie.year %> data-movie_title=<%- spnSearch %>>buscar</span>
+                    </div>
+                    <% } %>
         </div>
     </section>
-        
-<%- include('templates/footerSM') %>
+
+    <%- include('templates/footerSM') %>

@@ -4,14 +4,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.querySelector('body');
     const divMenu = document.querySelector('#divMenu');
     const txtSearch = document.querySelector('#title');
+    const spnFO = document.querySelector('#spnFO');
+    const divOpinions = document.querySelector('#divOpinions');
+    const spnLoader = document.querySelector('.loader');
 
     const urlBaseBack = 'http://localhost:3000';
+    // 'https://imdb-czpn.onrender.com';
 
 
     //* EVENTOS *//
     body.addEventListener('click', ({ target }) => {
 
         if (target.matches('i')) {
+
             if (target.id == 'btnMenu') {
                 divMenu.classList.toggle('mostrarNav');
             } else if (target.id == 'lupa') {
@@ -27,8 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     fetchData('addFavorite', data);
                 };
-                target.parentNode.classList.toggle('favorita')
-
+                target.parentNode.classList.toggle('favorita');
             };
         }
 
@@ -37,10 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //* FUNCIONES *//
     const fetchData = async (tipo, data) => {
-
+        let options = {};
+        let url;
         const bodyJSON = JSON.stringify(data);
 
         switch (tipo) {
+            case 'getOpinionsRT':
+                url = `${urlBaseBack}/api/scrapping/rt/?title=${data.title}&year=${data.year}`;
+                break;
+
+            case 'getOpinionsSC':
+                url = `${urlBaseBack}/api/scrapping/sc/?title=${data.title}&year=${data.year}`;
+                break;
 
             case 'addFavorite':
                 url = `${urlBaseBack}/api/favorites`;
@@ -59,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }; //SWITCH
 
         try {
-
+            // console.log('url', url, 'options', options)
             const request = await fetch(url, options);
 
             const response = await request.json();
@@ -87,8 +99,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }; //!FUNC-FETCHDATA
 
+    const paintOpinions = (opinions, titulo) => {
+        const fragment = document.createDocumentFragment();
+        let cont = 0;
+
+        const h3Titulo = document.createElement('H3');
+        h3Titulo.textContent = titulo;
+        fragment.append(h3Titulo);
+
+        opinions.forEach(op => {
+            cont++;
+            const aEscritor = document.createElement('A');
+            aEscritor.href = op.url;
+            aEscritor.textContent = op.escritor;
+            aEscritor.target = "_blank";
+
+            const pFecha = document.createElement('P');
+            pFecha.textContent = op.fecha;
+
+            const pOpinion = document.createElement('P');
+            pOpinion.textContent = op.opinion;
+
+            fragment.append(pOpinion, pFecha, aEscritor);
+        });
+        if (cont == 0) {
+            const pNoOpinion = document.createElement('P');
+            pNoOpinion.textContent = 'No hay opiniones.';
+            fragment.append(pNoOpinion);
+        }
+
+        divOpinions.append(fragment);
+    }
+
+    const getOpinions = async () => {
+        if (spnFO.textContent == 'buscar') {
+            let opinions;
+            if (spnFO.dataset.movie_id.includes('tt')) {
+                opinions = await fetchData('getOpinionsRT', {
+                    title: spnFO.dataset.movie_title.replace('_', '%20'),
+                    year: spnFO.dataset.movie_year
+                })
+                paintOpinions(opinions.data.data, 'RotterTomatoes:', false);
+
+                opinions = await fetchData('getOpinionsSC', {
+                    title: spnFO.dataset.movie_title.replace('_', '%20'),
+                    year: spnFO.dataset.movie_year
+                })
+                paintOpinions(opinions.data.data, 'SensaCine:');
+
+                spnLoader.classList.remove('loader');
+            }
+        }
+    }
+
     const init = () => {
-        // divMenu.classList.add('ocultar');
+        if (spnFO) getOpinions();
     }
 
     init();

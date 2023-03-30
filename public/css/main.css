@@ -129,6 +129,30 @@ nav.searchMovies i,
 
 /* FIN DASHBOARD-USER ******************************************** */
 
+/* VISTA DETALLES ************************************************ */
+h1.showMovie {
+    font-size: 3em;
+    color: white;
+    padding: 15px;
+}
+
+section.showMovie {
+    display: grid;
+    grid-template-columns: 0.4 fr 0.6fr;
+    width: 95%;
+    background-color: rgb(99, 111, 226);
+    border-radius: 20px;
+    padding: 15px;
+
+}
+
+section.showMovie div:last-of-type p {
+    color: rgb(35, 41, 95);
+    font-size: 1.2em;
+}
+
+/* FIN VISTA DETALLES ************************************************ */
+
 /* VIEW SEARCHMOVIES ***********************************************/
 h1.dashSearch {
     text-align: center;
@@ -197,7 +221,7 @@ form.dashSearch input {
     color: rgb(35, 41, 95);
 }
 
-#tableSearch tbody tr a:hover {    
+#tableSearch tbody tr a:hover {
     color: yellowgreen;
 }
 
@@ -324,7 +348,7 @@ div.search {
 
 
 /* Loader opiniones ********************************************* */
-.loader {
+#divOpinions .loader {
     width: 12px;
     height: 12px;
     border-radius: 50%;

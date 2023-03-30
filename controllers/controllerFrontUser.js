@@ -91,6 +91,7 @@ const getMovieC = async (req, res) => {
             ok: true,
             movie,
             opinions,
+            spnSearch: movie.title.replace(' ', '_'),
             user
         })
     }
@@ -182,7 +183,7 @@ const deleteFavorite = async (req, res) => {
 
     const id = await getIdCookie(req, res);
     res.redirect(`/dashboard-usuario/favoritas/${id}`);
-    
+
 
 }; //!FUNC-DELETEFAVORITE
 
