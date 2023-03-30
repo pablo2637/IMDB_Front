@@ -1,5 +1,4 @@
 
-
  <link rel="stylesheet" href="../../css/AdminPublic.css">
 
 
@@ -41,8 +40,19 @@
                           <p class="card-text"><%= item.runtimeStr %></p>
                           <div class="card-buttons">
                             <a href="/dashboard-admin/editar/<%= item._id %>" class="card-button">Editar</a>
-                            <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
-                              <button type="submit" id="BotonEliminar" class="card-button">Eliminar</button>
+                            <!-- <a href="/views/admin/botonEliminar.ejs" class="card-button">Eliminar</a> -->
+
+                            <button id="boton1">Eliminar</button>
+                            <div id="ventana" style="display:none;">
+                                <p class="textoo">¿Quieres eliminar Sí o No?</p>
+                               <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
+                              <button type="submit" id="BotonEliminar" class="card-button">SI</button>
+                               <a  class="no" href="/dashboard-admin">NO</a>
+                              </div>
+                            <!-- <form action="/dashboard-admin/eliminar/<%= item._id %>" method="POST">
+                              <button type="submit" id="BotonEliminar" class="card-button">Eliminar</button> -->
+
+                
                             </form>
                           </div>
                         </div>
