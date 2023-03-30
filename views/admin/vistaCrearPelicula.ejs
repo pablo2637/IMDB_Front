@@ -25,7 +25,7 @@
 
   <form action="/dashboard-admin/crear-pelicula" method="post" enctype="multipart/form-data">
     <label for="title">Título:</label>
-    <input type="text" id="title" name="title" placeholder="Título de la película">
+    <input type="text" id="title" name="title" placeholder="Título de la película" required>
 
     <label for="photo">Imagen:</label>
     <input type="file" id="photo" name="photo">
@@ -33,35 +33,35 @@
     <input type="hidden" id="image" name="image">
 
     <label for="year">Año:</label>
-    <input type="number" id="year" name="year" placeholder="Año de estreno">
+    <input type="number" id="year" name="year" placeholder="Año de estreno" required>
 
     <label for="directors">Director:</label>
-    <input type="text" id="directors" name="directors" placeholder="Director">
+    <input type="text" id="directors" name="directors" placeholder="Director" required>
 
     <label for="stars">Actores principales:</label>
-    <input type="text" id="stars" name="stars" placeholder="Actores principales">
+    <input type="text" id="stars" name="stars" placeholder="Actores principales" required>
 
     <label for="genres">Género:</label>
-    <input type="text" id="genres" name="genres" placeholder="Género">
+    <input type="text" id="genres" name="genres" placeholder="Género" required>
 
     <label for="runtimeStr">Duración: (en minutos ')</label>
-    <input type="text" id="runtimeStr" name="runtimeStr" placeholder="Duración">
+    <input type="text" id="runtimeStr" name="runtimeStr" placeholder="Duración" required>
 
     <label for="plot">Sinopsis:</label>
     <textarea name="plot" id="plot" cols="30" rows="10"
       placeholder="Introduza una sinopsis sobre la película que desea añadir"></textarea>
 
     <label for="imdbRating">Calificación:</label>
-    <input type="text" id="imdbRating" name="imdbRating" placeholder="Rating">
+    <input type="text" id="imdbRating" name="imdbRating" placeholder="Rating" required>
     
     <label for="opinion">Opinión:</label>
-    <input type="text" id="opinion" name="opinion" placeholder="Crítica de la película">
+    <input type="text" id="opinion" name="opinion" placeholder="Crítica de la película" required>
 
     <label for="fecha">Fecha (con formato aaaa/mm/dd):</label>
-    <input type="text" id="fecha" name="fecha" placeholder="Fecha de publicación de la crítica">
+    <input type="text" id="fecha" name="fecha" placeholder="Fecha de publicación de la crítica" required>
 
     <label for="escritor">Escritor:</label>
-    <input type="text" id="escritor" name="escritor" placeholder="Autor de la crítica">
+    <input type="text" id="escritor" name="escritor" placeholder="Autor de la crítica" required>
 
     <input type="hidden" id="url" name="url" value="">
 
