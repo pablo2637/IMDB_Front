@@ -14,7 +14,7 @@ const {
 
 const { onlyAdmin } = require('../middlewares/onlyAdmin')
 
-const { upload } = require('../helpers/uploadImage');
+const { upload } = require('../middlewares/uploadImage');
 
 
 //* MOSTRAR TODAS LAS PELÍCULAS
