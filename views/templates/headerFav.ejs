@@ -20,7 +20,7 @@
                 <form class="searchMovies" action="/dashboard-usuario/userSearch/searchMovies" method="post">
                     <label for="title"><i  id="lupa" class="fa-solid fa-magnifying-glass fa-xl"
                             style="color: #9194af;"></i></label>
-                    <input  class="" type="text" name="title" id="title">
+                    <input  class="ocultar" type="text" name="title" id="title">
                 </form>
             </div>
             <div>
@@ -28,8 +28,9 @@
                     <button><i id='btnMenu' class="fa-solid fa-bars fa-2xl"></i></button>
                     <div id="divMenu">
                         <ul>
-                            <li><a href="../userSearch/search">Buscar películas</a></li>
-                            <li><a href="../favoritas/<%- user.id %>">Ir a favoritas</a></li>
+                            <li><a href="../dashboard">Panel de Control</a></li>
+                            <li><a href="../userSearch/search">Buscador</a></li>
+                            <li><a href="../favoritas/<%- user.id %>">Mis Películas</a></li>
                             <li><a href="../../customLogout/">Logout</a></li>
                         </ul>
                     </div>

@@ -93,7 +93,7 @@ const fetchData = async (tipo, data) => {
 
     //Fetch
     try {
-        
+        console.log('url',url)
         const request = await fetch(url, options);
         const response = await request.json();
         if (!response) return {

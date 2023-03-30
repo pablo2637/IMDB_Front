@@ -72,21 +72,20 @@ const getMovieC = async (req, res) => {
     if (req.params.id.includes('tt')) tipo = 'getMovieExt';
     const response = await fetchData(tipo, req);
 
-    if (tipo == 'getMovieInt') opinions = {
-        ok: true,
-        RT: [response.data.response.opinions],
-        SC: ''
-    }
+    if (tipo == 'getMovieInt') opinions = response.data.response.opinions;
 
     if (response) {
-        if (tipo == 'getMovieInt') movie = response.data.response;
-        else movie = response.data;
+        if (tipo == 'getMovieInt') {
+            movie = response.data.response;
+            movie.id_movie = movie._id;
+        } else movie = response.data;
 
         const favUser = await getFavsCookie(req, res);
         movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
 
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
+        console.log('user', user, 'movie', movie)
         res.render('show-movie', {
             ok: true,
             movie,
@@ -141,9 +140,9 @@ const getFavorites = async (req, res) => {
         for (let i = 0; i < movies.length; i++) {
             if (movies[i].includes('tt')) tipo = 'getMovieExtBack';
             else tipo = 'getMovieIntBack';
-
             let { data } = await fetchData(tipo, movies[i]);
-            arrayMovies.push(data);
+            if (tipo == 'getMovieIntBack') data = data.response;
+            if (data) arrayMovies.push(data);
         };
 
     } catch (error) {
@@ -154,9 +153,6 @@ const getFavorites = async (req, res) => {
 
     const user = req.oidc.user;
     user.id = await getIdCookie(req, res);
-
-    const favUser = await getFavsCookie(req, res);
-    arrayMovies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
     res.render('../views/favoritas.ejs', {
         arrayMovies,

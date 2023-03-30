@@ -5,7 +5,7 @@ const setIdCookie = async (req, res, id) => {
             httpOnly: true,
             secure: false,
             sameSite: 'lax',
-            maxAge: 600000
+            maxAge: 1000*60*30
         })
 }
 
@@ -15,7 +15,7 @@ const setFavsCookie = async (req, res, favs) => {
             httpOnly: true,
             secure: false,
             sameSite: 'lax',
-            maxAge: 600000
+            maxAge: 1000*60*30
         })
 }
 
@@ -25,7 +25,7 @@ const setRolCookie = async (req, res, rol) => {
             httpOnly: true,
             secure: false,
             sameSite: 'lax',
-            maxAge: 600000
+            maxAge: 1000*60*30
         })
 }
 
