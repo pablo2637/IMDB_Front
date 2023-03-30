@@ -60,21 +60,31 @@ const crearMovieNueva = async (req, res) => {
 
 const mostrarFormularioEditar = async (req, res) => {
 
-  const id = req.params.id;
   const tipo = 'putMovieInt';
 
   try {
+    
     const { data } = await fetchData(tipo, req);
 
-    console.log('CONTROLLER:', data)
+    if(data.ok){
 
-    res.render('../views/admin/vistaEditarPelicula.ejs', {
-      movies: data.response
+      res.status(200).render('../views/admin/vistaEditarPelicula.ejs', {
+        movies: data.response
+      });  
 
-    });
+    } else {
+
+      res.status(400).send({ error: 'No se ha podido cargar el formulario para editar la película.' });
+
+    };
+
+
   } catch (error) {
+
     console.log(error);
-  }
+    res.status(500).send({ error: 'Contacte con el administrador.' });
+
+  };
 
 
 }; //!FUNC-MOSTRARFORMULARIOEDITAR
