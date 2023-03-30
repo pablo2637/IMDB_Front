@@ -194,13 +194,18 @@ const editarMovie = async (req, res) => {
 
 const eliminarMovie = async (req, res) => {
 
+  // variables
   const tipo = 'deleteMovieInt';
 
+
+  // fetch
   try {
 
-    const movies = await fetchData(tipo, req);
+    const {ok, data} = await fetchData(tipo, req);
+
+    const {response} = data;
     
-    if (!movies) {
+    if (!ok) {
 
       return res.status(400).json({
         ok: false,
@@ -208,6 +213,12 @@ const eliminarMovie = async (req, res) => {
       });
 
     } else {
+
+      const {image} = response;
+      deletePic = image.split('/');
+      deletePic = deletePic[deletePic.length-1];   
+
+      await fs.unlink(`${urlStatic}/${deletePic}`);
 
       return res.status(200).redirect('/dashboard-admin');
 
