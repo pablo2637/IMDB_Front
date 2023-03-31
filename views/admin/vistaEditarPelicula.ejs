@@ -8,7 +8,7 @@
    
     <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
         <label for="title">Título:</label>
-        <input type="text" id="title" name="title" value="<%= movies.title %>">
+        <input type="text" id="title" name="title" value="<%= movies.title %>"required >
 
         <label for="photo">Imagen:</label>
         <input type="file" id="photo" name="photo">
@@ -25,7 +25,7 @@
         <input type="text" id="stars" name="stars" placeholder="Actores" value="<%= movies.stars %>">
 
         <label for="genres">Género:</label>
-        <input type="text" id="genres" name="genres" value="<%= movies.genres %>">
+        <input type="text" id="genres" name="genres" value="<%= movies.genres %>" required>
 
         <label for="runtimeStr">Duración:</label>
         <input type="text" id="runtimeStr" name="runtimeStr" value="<%= movies.runtimeStr %>">
