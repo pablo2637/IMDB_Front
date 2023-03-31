@@ -11,6 +11,4 @@ const validarInputs = (req, res, next) => {
     next()
 }
 
-module.exports = {
-    validarInputs,
-}
+module.exports = { validarInputs }

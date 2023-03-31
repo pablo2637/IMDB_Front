@@ -1,0 +1,54 @@
+<%- include('templates/header',{urlTitle:'Editar Película'}) %>
+<a class="link-item" href="/dashboard-admin">Atras</a>
+<link rel="stylesheet" href="../../css/AdminPublic.css">
+
+
+<section id="formulario">
+
+   
+    <form action="/dashboard-admin/editar/<%= movies._id %>" method="post" enctype="multipart/form-data">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" value="<%= movies.title %>"required >
+
+        <label for="photo">Imagen:</label>
+        <input type="file" id="photo" name="photo">
+
+        <input type="hidden" id="image" name="image" value="<%= movies.image %>">
+
+        <label for="year">Año:</label>
+        <input type="number" id="year" name="year" value="<%= movies.year %>">
+
+        <label for="directors">Director:</label>
+        <input type="text" id="directors" name="directors" value="<%= movies.directors %>">
+
+        <label for="stars">Actores principales:</label>
+        <input type="text" id="stars" name="stars" placeholder="Actores" value="<%= movies.stars %>">
+
+        <label for="genres">Género:</label>
+        <input type="text" id="genres" name="genres" value="<%= movies.genres %>" required>
+
+        <label for="runtimeStr">Duración:</label>
+        <input type="text" id="runtimeStr" name="runtimeStr" value="<%= movies.runtimeStr %>">
+
+        <label for="plot">Sinopsis:</label>
+        <textarea name="plot" id="plot" cols="30" rows="10" placeholder="Introduza una sinopsis sobre la película que desea añadir"><%= movies.plot %></textarea>
+
+        <label for="imdbRating">Calificación:</label>
+        <input type="text" id="imdbRating" name="imdbRating" value="<%= movies.imdbRating %>">    
+
+        <label for="opinion">Opinión:</label>
+        <input type="text" id="opinion" name="opinion" value="<%= movies.opinions.opinion%>">
+
+        <label for="date">Fecha:</label>
+        <input type="text" id="fecha" name="fecha" value="<%= movies.opinions.fecha %>">
+
+        <label for="escritor">Escritor:</label>
+        <input type="text" id="escritor" name="escritor" value="<%= movies.opinions.escritor%>">
+
+        <input type="hidden" id="url" name="url" value="">
+
+        <input type="submit" value="Editar">
+    </form>
+</section>
+
+<%- include('templates/footer') %>

@@ -1,0 +1,47 @@
+<%- include('templates/headerSM',{opinions,movie, urlTitle: 'Mostrar Película' }) %>
+    <h1 class="showMovie"> <%- movie.title %> </h1>
+
+    <section class="showMovie">        
+        <div>            
+            <% if (movie.fav) { %>
+                <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>
+                        class="btnFav favorita"><i class="fa-solid fa-star fa-2xl"></i></button>
+            <% } else { %>
+                <button id="btnFav<%- movie.id_movie %>" data-movie_id=<%- movie.id_movie %> data-user_id=<%- user.id %>
+                        class="btnFav"><i class="fa-solid fa-star fa-2xl"></i></button>
+            <% } %>
+            <img src="<%- movie.image %>" alt="" height="200">
+        </div>
+
+        <div>
+            <p>Año: <span><%- movie.year %></span> </p>
+            <p>Duración: <span><%- movie.runtimeStr %></span> </p>
+            <p>Géneros: <span><%- movie.genres %></span> </p>
+            <p>Director: <span><%- movie.directors %></span> </p>
+            <p>Actores: <span><%- movie.stars %></span> </p>
+            <p>Rating: <span><%- movie.imDbRating %></span> </p>
+            <p>Sinopsis: <span><%- movie.plot %></span> </p>
+        </div>
+    </section>
+
+    <section class="showOpinions">
+        <div>
+            <h2>Opiniones:</h2>
+            <% if (opinions!='' ) { %>
+                <div id="divOpinions">
+                    <p class="opOpinion"><%- opinions.opinion %></p>
+                    <p class="opFecha"><%- opinions.fecha %></p>
+                    <a class="opA" href="<%- opinions.url %>" target="_blank"><%- opinions.escritor %></a>                    
+                </div>
+
+            <% } else { %>
+                <div id="divOpinions">
+                    <span class="loader"></span>
+                    <span id='spnFO' class="ocultar" data-movie_id=<%- movie.id_movie %> data-movie_year=<%-
+                            movie.year %> data-movie_title=<%- spnSearch %>>buscar</span>
+                </div>
+            <% } %>
+        </div>
+    </section>
+
+    <%- include('templates/footerSM') %>
