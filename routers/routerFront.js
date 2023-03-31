@@ -23,16 +23,16 @@ router.get('/dashboard',
     redirectUser
 )
 
-router.get('/user',
-    requiresAuth(),
-    registerUser,
-    userDashboard
-)
+// router.get('/user',
+//     requiresAuth(),
+//     registerUser,
+//     userDashboard
+// )
 
-router.get('/admin',
-    requiresAuth(),
-    registerUser,
-    adminDashboard
-)
+// router.get('/admin',
+//     requiresAuth(),
+//     registerUser,
+//     adminDashboard
+// )
 
 module.exports = router;
