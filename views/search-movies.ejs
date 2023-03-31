@@ -35,6 +35,9 @@
                             <td><a title="Ver" href="/dashboard-usuario/userSearch/showMovie/<%- movie.id_movie %>"><i class="fa-solid fa-circle-info fa-xl" style="color: #054083;"></i></a></td>
                         </tr>
                     <% }) %>
+                    <% if (movies.length==0) { %>
+                        <tr><td id="noResults" colspan="9">Ohhhh... tu búsqueda no ha coincidido con ningúna película! </td></tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

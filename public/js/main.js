@@ -102,27 +102,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const paintOpinions = (opinions, titulo) => {
         const fragment = document.createDocumentFragment();
         let cont = 0;
-
+        console.log(titulo, opinions)
         const h3Titulo = document.createElement('H3');
         h3Titulo.textContent = titulo;
         fragment.append(h3Titulo);
 
-        opinions.forEach(op => {
-            cont++;
-            const aEscritor = document.createElement('A');
-            aEscritor.href = op.url;
-            aEscritor.textContent = op.escritor;
-            aEscritor.target = "_blank";
+        if (opinions) {
+            opinions.forEach(op => {
+                cont++;
+                const aEscritor = document.createElement('A');
+                aEscritor.classList.add('opA');
+                aEscritor.href = op.url;
+                aEscritor.textContent = op.escritor;
+                aEscritor.target = "_blank";
 
-            const pFecha = document.createElement('P');
-            pFecha.textContent = op.fecha;
+                const pFecha = document.createElement('P');
+                pFecha.classList.add('opFecha');
+                pFecha.textContent = op.fecha;
 
-            const pOpinion = document.createElement('P');
-            pOpinion.textContent = op.opinion;
+                const pOpinion = document.createElement('P');
+                pOpinion.classList.add('opOpinion');
+                pOpinion.textContent = op.opinion;
 
-            fragment.append(pOpinion, pFecha, aEscritor);
-        });
-        if (cont == 0) {
+                fragment.append(pOpinion, pFecha, aEscritor);
+            });
+        }
+        if (cont == 0 || !opinions) {
             const pNoOpinion = document.createElement('P');
             pNoOpinion.textContent = 'No hay opiniones.';
             fragment.append(pNoOpinion);
@@ -135,17 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (spnFO.textContent == 'buscar') {
             let opinions;
             if (spnFO.dataset.movie_id.includes('tt')) {
-                opinions = await fetchData('getOpinionsRT', {
-                    title: spnFO.dataset.movie_title.replace('_', '%20'),
-                    year: spnFO.dataset.movie_year
-                })
-                paintOpinions(opinions.data.data, 'RotterTomatoes:', false);
 
                 opinions = await fetchData('getOpinionsSC', {
                     title: spnFO.dataset.movie_title.replace('_', '%20'),
                     year: spnFO.dataset.movie_year
                 })
                 paintOpinions(opinions.data.data, 'SensaCine:');
+
+                opinions = await fetchData('getOpinionsRT', {
+                    title: spnFO.dataset.movie_title.replace('_', '%20'),
+                    year: spnFO.dataset.movie_year
+                })
+                paintOpinions(opinions.data.data, 'RottenTomatoes:');
 
                 spnLoader.classList.remove('loader');
             }

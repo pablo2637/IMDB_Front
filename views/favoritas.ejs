@@ -1,33 +1,45 @@
-<%- include('templates/headerFav',{urlTitle: 'Películas Favoritas',user}) %>
+<%- include('templates/headerFav',{urlTitle: 'Mis Películas',user}) %>
 
 <p class="search"><%- user.name %></p>
 
     <% if (arrayMovies.length > 0) { %>
+        <div class="containerFav">
+            <% arrayMovies.forEach(item => { %>
+                
+                <article class="movieFav">
+                    <div>
+                        <h2> <%= item.title %> </h2>
+                    </div>
 
-        <% arrayMovies.forEach(item => { %>
-            <article>
-                <h2> <%= item.title %> </h2>
-                <img src="<%= item.image %>" alt="" width="300px">
-                <% if (item.fav) { %>
-                    <th><button id="btnFav<%- item.id_movie %>" class="btnFav favorita" data-movie_id=<%- item.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>
-                <% } else { %>
-                    <th><button id="btnFav<%- item.id_movie %>" class="btnFav" data-movie_id=<%- item.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>      
-                <% } %>
-                <p><%= item.year %></p>
-                <p><%= item.directors %></p>
-                <p><%= item.genres %></p>
-                <p><%= item.runtimeStr %></p>
+                    <div  class="medio">
+                        <% if (item.fav) { %>
+                            <th><button id="btnFav<%- item.id_movie %>" class="btnFav favorita" data-movie_id=<%- item.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>
+                        <% } else { %>
+                            <th><button id="btnFav<%- item.id_movie %>" class="btnFav" data-movie_id=<%- item.id_movie %> data-user_id=<%- user.id %>><i class="fa-solid fa-star fa-xl"></i></button></th>      
+                        <% } %>
+                        <img src="<%= item.image %>" alt="" width="300px">
+                    </div>
 
-                <a href="/dashboard-usuario/userSearch/showMovie/<%- item.id_movie %>">Ver detalles</a>
-                <a href="/dashboard-usuario/eliminar-favorita/<%= user.id %>?movie_id=<%= item.id_movie %>">Eliminar</a>                
+                    <div class="contenido">
+                        <p>Año: <span><%= item.year %></span></p>
+                        <p>Director: <span><%= item.directors %></span></p>
+                        <p>Géneros: <span><%= item.genres %></span></p>
+                        <p>Duración: <span><%= item.runtimeStr %></span></p>
+                    </div>
+                    <div class="final">                    
+                        <a class="btnFavC" href="/dashboard-usuario/userSearch/showMovie/<%- item.id_movie %>"><i class="fa-solid fa-circle-info"></i> Detalles</a>
+                        <a class="btnFavC" href="/dashboard-usuario/eliminar-favorita/<%= user.id %>?movie_id=<%= item.id_movie %>"><i class="fa-solid fa-trash"></i> Eliminar</a>                
 
-                <div>  </div>
-            </article>
-        <% }) %>
+                        <div class="ocultar eliminarFav"> (div oculto para preguntar si está seguro que quiere eliminar) </div>
+                    </div>
+                </article>        
+            <% }) %>
+        </div>
+
 
     <% } else { %>
      
-        <p> No hay películas favoritas… </p>
+        <p id="noResultsFavs">Aún no tienes películas favoritas…</p>
      
     <% } %>
 <%- include('templates/footer') %>

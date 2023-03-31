@@ -1,11 +1,10 @@
-<%- include('templates/header',{urlTitle, user}) %>
+<%- include('templates/headerDash',{urlTitle, user}) %>
 
     <p class="search"><%- user.name %></p>
     <div class="search">
-        <a class="search" href="/dashboard-usuario/userSearch/search">Buscar Películas</a>
+        <a class="search" href="/dashboard-usuario/userSearch/search"><i class="fa-solid fa-film fa-xl" style="color: #95abf3;"></i> Buscador de Películas</a>        
     </div>
     <div class="search">
-        <a class="search" href="/dashboard-usuario/favoritas/<%- user.id %>">Ir a Favoritos</a>
-    </div>
-
+        <a class="search" href="/dashboard-usuario/favoritas/<%- user.id %>">Mis Películas <i class="fa-solid fa-photo-film fa-xl" style="color: #95abf3;"></i></a>        
+    </div>    
     <%- include('templates/footer') %>

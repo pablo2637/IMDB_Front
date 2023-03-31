@@ -40,6 +40,8 @@ div.index {
 header {
     background-color: rgb(35, 41, 95);
     padding: 20px;
+    border-bottom: 2px solid rgb(99, 111, 226);
+    ;
 }
 
 #flecha {
@@ -123,27 +125,182 @@ nav.searchMovies i,
     cursor: pointer;
 }
 
-.ocultar {
-    display: none;
+/* FIN DASHBOARD-USER ******************************************** */
+
+/* VISTA FAVORITAS *********************************************** */
+
+#noResultsFavs{
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    color: yellowgreen;
 }
 
-/* FIN DASHBOARD-USER ******************************************** */
+.containerFav {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 95%;
+    margin: 0 auto;
+    justify-items: center;
+    padding: 5px;
+}
+
+article.movieFav {
+    margin: 15px auto;
+    width: 450px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgb(99, 111, 226);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 0 10px black;
+}
+
+article.movieFav div:first-of-type,
+article.movieFav div.final {
+    grid-column: 1 / 3;
+    text-align: center;
+}
+
+article.movieFav h2 {
+    padding: 10px;
+    color: white;
+    text-shadow: 0 0 3px black;
+}
+
+article.movieFav div.medio {
+    display: flex;
+    grid-column: 1 / 2;
+}
+
+article.movieFav div.final {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;        
+}
+
+article.movieFav a{
+    text-decoration: none;    
+    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(35, 41, 95);;
+    border-radius: 20px;    
+    width: 180px;    
+    box-shadow: 0 0 3px black;
+    color: white;
+    font-size: 1.3em;
+    padding: 10px;
+}
+
+article.movieFav img {
+    height: 250px;
+    width: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+article.movieFav p {
+    line-height: 35px;
+    font-weight: bold;
+}
+
+article.movieFav div.contenido {
+    grid-column: 2 / 3;
+    padding-left: 15px;
+    color: rgb(35, 41, 95);
+}
+
+article.movieFav p {
+    line-height: 25px;
+    font-weight: bold;
+}
+
+article.movieFav span {
+    font-weight: normal;
+    color: rgb(56, 64, 143);
+}
+
+
+/* FIN VISTA FAVORITAS ******************************************** */
+
 
 /* VISTA DETALLES ************************************************ */
 h1.showMovie {
     font-size: 3em;
     color: white;
     padding: 15px;
+    text-align: center;
+    padding: 15px;
+    margin: 15px;
 }
 
 section.showMovie {
     display: grid;
-    grid-template-columns: 0.4 fr 0.6fr;
+    grid-template-columns: 0.4fr 0.6fr;
     width: 95%;
     background-color: rgb(99, 111, 226);
     border-radius: 20px;
     padding: 15px;
+    margin: 15px auto;
+    box-shadow: 0 0 10px black;
+}
 
+section.showOpinions {
+    width: 95%;
+    background-color: rgb(99, 111, 226);
+    border-radius: 20px;
+    padding: 15px;
+    margin: 15px auto;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+#divOpinions h3 {
+    margin-top: 10px;
+    padding: 10px 0;
+}
+
+.opOpinion {
+    padding: 15px 0;
+    font-style: italic;
+    text-align: center;
+}
+
+.opFecha {
+    font-size: 0.8em;
+    padding: 5px 0;
+}
+
+.opA {
+    text-decoration: none;
+    color: white;
+}
+
+section.showMovie div:first-of-type {
+    display: flex;
+    grid-column: 1 / 2;
+}
+
+section.showMovie img {
+    height: 400px;
+    width: 280px;
+    object-fit: contain;
+}
+
+section.showMovie p {
+    line-height: 35px;
+    font-weight: bold;
+}
+
+section.showMovie p:last-of-type {
+    text-align: justify;
+}
+
+section.showMovie span {
+    font-weight: normal;
+    color: rgb(56, 64, 143);
+}
+
+section.showMovie div:last-of-type {
+    grid-column: 2 / 3;
 }
 
 section.showMovie div:last-of-type p {
@@ -197,6 +354,7 @@ form.dashSearch input {
     margin: 0 auto;
     background-color: rgb(99, 111, 226);
     border-radius: 20px;
+    box-shadow: 0 0 10px black;
 }
 
 #tableSearch table {
@@ -214,6 +372,12 @@ form.dashSearch input {
     margin: 10px 0;
     border-bottom: 1px dotted rgb(35, 41, 95);
     border-collapse: collapse;
+}
+
+#noResults {
+    font-size: 1.5em;
+    color: rgb(35, 41, 95);
+    padding: 5px;
 }
 
 #tableSearch tbody tr a {
@@ -310,6 +474,7 @@ form.dashSearch input {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    height: 50px;
 }
 
 /* Fin Estrella Favorita ********************************************* */
@@ -323,7 +488,16 @@ p.search {
     padding: 5px;
 }
 
+div.search {
+    justify-content: center;
+    width: 500px;
+    text-align: center;
+    margin: 15px auto;
+    display: grid;
+}
+
 a.search {
+    display: block;
     text-decoration: none;
     border: 1px solid blue;
     color: white;
@@ -333,16 +507,10 @@ a.search {
     box-shadow: 0 0 3px rgb(99, 111, 226);
     background-color: rgb(99, 111, 226);
     padding: 10px 25px;
-    display: block;
-    width: 250px;
+    width: 350px;
+    height: 50px;
 }
 
-div.search {
-    width: 300px;
-    text-align: center;
-    margin: 15px auto;
-    display: block;
-}
 
 /* FIN Search ************************************************************ */
 
@@ -397,3 +565,7 @@ div.search {
 }
 
 /* FIN Loader opiniones ********************************************* */
+
+.ocultar {
+    display: none;
+}
