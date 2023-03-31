@@ -514,6 +514,20 @@ a.search {
 
 /* FIN Search ************************************************************ */
 
+/* 404 ********************************************************* */
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+}
+
+.text-align{
+    text-align: center;
+}
+
+/* FIN 404 ********************************************************* */
+
 
 /* Loader opiniones ********************************************* */
 #divOpinions .loader {
