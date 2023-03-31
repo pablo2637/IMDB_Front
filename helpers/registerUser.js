@@ -8,16 +8,13 @@ const pool = new Pool({
     password: process.env.ELEPHANT_PASS,
 });
 
-const {
-    updateFavs,
-    updateFavsID } = require('../helpers/favorites')
+const { updateFavsID } = require('../helpers/favorites')
 
 const {
     clearCookies,
     getRolCookie,
     setIdCookie,
-    setRolCookie,
-    getIdCookie } = require('./cookies')
+    setRolCookie } = require('./cookies')
 
 const isAdmin = async (req, res) => {
     const rolCookie = await getRolCookie(req, res);
