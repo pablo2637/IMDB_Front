@@ -129,6 +129,13 @@ nav.searchMovies i,
 
 /* VISTA FAVORITAS *********************************************** */
 
+#noResultsFavs{
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    color: yellowgreen;
+}
+
 .containerFav {
     display: grid;
     grid-template-columns: 1fr;
@@ -370,7 +377,6 @@ form.dashSearch input {
 #noResults {
     font-size: 1.5em;
     color: rgb(35, 41, 95);
-    ;
     padding: 5px;
 }
 

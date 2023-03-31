@@ -45,11 +45,11 @@ const searchMoviesC = async (req, res) => {
         else mv.stars = '--';
     })
     movies = movies.concat(response.data);
-    
+
     if (movies) {
         const favUser = await getFavsCookie(req, res);
-        console.log('favuser',favUser)
-        if (favUser != undefined) movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
+        // console.log('favuser', favUser,typeof favUser)
+        if (favUser != 'undefined') movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
         console.log('movies', movies)
         const user = req.oidc.user;
@@ -82,7 +82,7 @@ const getMovieC = async (req, res) => {
         } else movie = response.data;
 
         const favUser = await getFavsCookie(req, res);
-        movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
+        if (favUser != 'undefined') movie.fav = favUser.find(f => f.movie_id == movie.id_movie);
 
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
@@ -134,7 +134,7 @@ const getFavorites = async (req, res) => {
 
         const { data } = await fetchData('getFavorites', req);
         await setFavsCookie(req, res, data.data);
-        console.log('data', data)
+        // console.log('data', data)
 
         if (data.ok) {
             const movies = data.data.map(movie => movie = movie.movie_id); // extraigo solo los 'movie_id'
@@ -145,13 +145,18 @@ const getFavorites = async (req, res) => {
                 else tipo = 'getMovieIntBack';
                 let { data } = await fetchData(tipo, movies[i]);
 
-                console.log('tipo', tipo)
+                // console.log('tipo', tipo)
+                // console.log('data', data)                
+
                 if (tipo == 'getMovieIntBack') {
-                    console.log('data', data.response)
-                    const idMov = data.response._id;
-                    data = data.response;
-                    data.id_movie = idMov;
+                    if (data.ok) {
+                        const idMov = data.response._id;
+                        data = data.response;
+                        data.id_movie = idMov;
+                    } else console.log('Peli no encontrada:', data)
                 }
+
+
                 if (data) arrayMovies.push(data);
             };
         }
@@ -164,8 +169,11 @@ const getFavorites = async (req, res) => {
 
     const user = req.oidc.user;
     user.id = await getIdCookie(req, res);
-    console.log('user', user)
-    console.log('movies', arrayMovies)
+    // console.log('user', user)
+    // console.log('movies', arrayMovies)
+    const favUser = await getFavsCookie(req, res);
+    console.log('favuser', favUser)
+    if (favUser != 'undefined') arrayMovies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
     res.render('../views/favoritas.ejs', {
         arrayMovies,
