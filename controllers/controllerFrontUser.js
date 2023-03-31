@@ -45,12 +45,13 @@ const searchMoviesC = async (req, res) => {
         else mv.stars = '--';
     })
     movies = movies.concat(response.data);
-
+    
     if (movies) {
-        movies.sort();
         const favUser = await getFavsCookie(req, res);
-        movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
+        console.log('favuser',favUser)
+        if (favUser != undefined) movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
+        console.log('movies', movies)
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
 
@@ -133,26 +134,38 @@ const getFavorites = async (req, res) => {
 
         const { data } = await fetchData('getFavorites', req);
         await setFavsCookie(req, res, data.data);
+        console.log('data', data)
 
-        const movies = data.data.map(movie => movie = movie.movie_id); // extraigo solo los 'movie_id'
+        if (data.ok) {
+            const movies = data.data.map(movie => movie = movie.movie_id); // extraigo solo los 'movie_id'
 
-        let tipo;
-        for (let i = 0; i < movies.length; i++) {
-            if (movies[i].includes('tt')) tipo = 'getMovieExtBack';
-            else tipo = 'getMovieIntBack';
-            let { data } = await fetchData(tipo, movies[i]);
-            if (tipo == 'getMovieIntBack') data = data.response;
-            if (data) arrayMovies.push(data);
-        };
+            let tipo;
+            for (let i = 0; i < movies.length; i++) {
+                if (movies[i].includes('tt')) tipo = 'getMovieExtBack';
+                else tipo = 'getMovieIntBack';
+                let { data } = await fetchData(tipo, movies[i]);
 
+                console.log('tipo', tipo)
+                if (tipo == 'getMovieIntBack') {
+                    console.log('data', data.response)
+                    const idMov = data.response._id;
+                    data = data.response;
+                    data.id_movie = idMov;
+                }
+                if (data) arrayMovies.push(data);
+            };
+        }
     } catch (error) {
 
         console.log('error:', error);
 
     };
 
+
     const user = req.oidc.user;
     user.id = await getIdCookie(req, res);
+    console.log('user', user)
+    console.log('movies', arrayMovies)
 
     res.render('../views/favoritas.ejs', {
         arrayMovies,

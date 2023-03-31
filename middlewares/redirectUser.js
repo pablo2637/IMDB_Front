@@ -8,7 +8,7 @@ const redirectUser = async (req, res) => {
     // console.log('user', user,req.id)
     user.id = req.id;
     if (rol == 'admin') return res.redirect('/dashboard-admin') //res.render('admin/dashboard-admin', { user, urlTitle: 'Dashboard admin' });
-    return res.render('dashboard-user', { user, urlTitle: 'Dashboard usuario' });
+    return res.render('dashboard-user', { user, urlTitle: 'Panel de Control' });
 }
 
 

@@ -140,17 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (spnFO.textContent == 'buscar') {
             let opinions;
             if (spnFO.dataset.movie_id.includes('tt')) {
-                opinions = await fetchData('getOpinionsRT', {
-                    title: spnFO.dataset.movie_title.replace('_', '%20'),
-                    year: spnFO.dataset.movie_year
-                })
-                paintOpinions(opinions.data.data, 'RottenTomatoes:', false);
 
                 opinions = await fetchData('getOpinionsSC', {
                     title: spnFO.dataset.movie_title.replace('_', '%20'),
                     year: spnFO.dataset.movie_year
                 })
                 paintOpinions(opinions.data.data, 'SensaCine:');
+
+                opinions = await fetchData('getOpinionsRT', {
+                    title: spnFO.dataset.movie_title.replace('_', '%20'),
+                    year: spnFO.dataset.movie_year
+                })
+                paintOpinions(opinions.data.data, 'RottenTomatoes:');
 
                 spnLoader.classList.remove('loader');
             }
