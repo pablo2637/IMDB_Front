@@ -51,7 +51,7 @@ const searchMoviesC = async (req, res) => {
         // console.log('favuser', favUser,typeof favUser)
         if (favUser != 'undefined') movies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
-        console.log('movies', movies)
+        // console.log('movies', movies)
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
 
@@ -86,7 +86,7 @@ const getMovieC = async (req, res) => {
 
         const user = req.oidc.user;
         user.id = await getIdCookie(req, res);
-        console.log('user', user, 'movie', movie)
+        // console.log('user', user, 'movie', movie)
         res.render('show-movie', {
             ok: true,
             movie,
@@ -172,7 +172,7 @@ const getFavorites = async (req, res) => {
     // console.log('user', user)
     // console.log('movies', arrayMovies)
     const favUser = await getFavsCookie(req, res);
-    console.log('favuser', favUser)
+    // console.log('favuser', favUser)
     if (favUser != 'undefined') arrayMovies.map(m => m.fav = favUser.find(f => f.movie_id == m.id_movie));
 
     res.render('../views/favoritas.ejs', {

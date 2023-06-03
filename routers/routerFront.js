@@ -17,9 +17,9 @@ router.get('/', (req, res) => { res.render('index') });
 
 router.get('/customLogout', logoutUser);
 
-router.get('/dashboard',
+router.get('/dashboard',[
     requiresAuth(),
-    registerUser,
+    registerUser],
     redirectUser
 )
 
